@@ -1,16 +1,16 @@
 ﻿using UnityEngine;
 
-public struct ArrangerSystem
+public class ArrangerSystem
 {
-    public void ArrangeTile(in int height, in int width, TileController[,] tiles)
+    public static void ArrangeTile(TileController[,] tiles, int width, int height, float spacing)
     {
-        for (int h = 0; h < height; h++)
+        for (int w = 0; w < width; w++)
         {
-            for (int w = 0; w < width; w++)
+            for (int h = 0; h < height; h++)
             {
-                Vector3 newPosition = new Vector3(w * 1, h * 1, 0f);
+                Vector3 newPosition = new Vector3(w * spacing, h * spacing, 0f);
 
-                tiles[h, w].transform.localPosition = newPosition;
+                tiles[w, h].transform.localPosition = newPosition;
             }
         }
     }
