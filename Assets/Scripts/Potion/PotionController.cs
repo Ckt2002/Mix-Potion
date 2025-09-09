@@ -2,5 +2,5 @@
 
 public class PotionController : MonoBehaviour
 {
-    public Potion potionSetting;
+    [SerializeField] Potion potionSetting;
 }

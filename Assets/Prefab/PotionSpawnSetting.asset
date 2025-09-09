@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e69413ba93f1cf48859af578bf5b809, type: 3}
+  m_Name: PotionSpawnSetting
+  m_EditorClassIdentifier: 
+  PotionPrefab:
+  - {fileID: 5106866929976716467, guid: 6a0a619c5f1f5634797d79b81db43809, type: 3}
+  - {fileID: 1772822669701574868, guid: 025a59bf9860a8d4689723aa485b02b5, type: 3}
+  - {fileID: 5292754511438970430, guid: 03deaea58e2c1464d95b8c015a8b21a1, type: 3}
+  SpawnNumber: 20

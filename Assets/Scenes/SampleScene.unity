@@ -265,11 +265,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da5e0656cbbcfa4f9a8410c4bea0035, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilePrefab: {fileID: 2072904296228062766, guid: 797016cac880a524ab74af13c45b7009, type: 3}
-  width: 8
-  height: 8
-  spacing: 1
-  parent: {fileID: 1600579406}
+  Instance: {fileID: 0}
+  tilePoolSetting: {fileID: 11400000, guid: 3b38603195c93be49a03519ddce61d6e, type: 2}
+  potionPoolSetting: {fileID: 11400000, guid: ec1a78498fc711f44871e8296c404e30, type: 2}
+  gameSetting: {fileID: 11400000, guid: 2aa380717eec1b74ab6f6192b6a96acd, type: 2}
+  tileParent: {fileID: 1600579406}
+  potionParent: {fileID: 1095199928}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -401,7 +402,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 3.5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

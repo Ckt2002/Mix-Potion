@@ -26,6 +26,6 @@ public class GameController : MonoBehaviour
     {
         tiles = new TileSpawner().SpawnTile(tilePoolSetting.TilePrefab, gameSetting.Width, gameSetting.Height, tileParent);
         poolController = new PoolController(potionPoolSetting, potionParent);
-        ArrangerSystem.ArrangeTile(tiles, gameSetting.Width, gameSetting.Height, gameSetting.Spacing);
+        ArrangeSystem.ArrangeBoard(tiles, in gameSetting, poolController);
     }
 }
