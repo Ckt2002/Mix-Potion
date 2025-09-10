@@ -4,7 +4,6 @@ public class ArrangeSystem
 {
     public static void ArrangeBoard(TileController[,] tiles, in SOGameSetting gameSetting, PoolController poolController)
     {
-        Debug.Log(poolController);
         for (int w = 0; w < gameSetting.Width; w++)
         {
             for (int h = 0; h < gameSetting.Height; h++)

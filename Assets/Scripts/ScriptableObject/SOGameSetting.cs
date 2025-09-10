@@ -5,4 +5,5 @@ public class SOGameSetting : ScriptableObject
 {
     public int Width, Height;
     public float Spacing;
+    public float DragDistance;
 }
