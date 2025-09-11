@@ -3,11 +3,13 @@ using UnityEngine;
 
 public class SwapSystem
 {
+    CheckMatchSystem checkMatchSystem;
     TileController[,] tiles;
 
     public SwapSystem(TileController[,] tiles)
     {
         this.tiles = tiles;
+        checkMatchSystem = new CheckMatchSystem();
     }
 
     public IEnumerator SwapPotion(int w, int h, int swappedW, int swappedH)
@@ -16,11 +18,17 @@ public class SwapSystem
             yield break;
 
         yield return MovePotion(tiles[w, h], tiles[swappedW, swappedH]);
+        SwitchTile(w, h, swappedW, swappedH);
 
-        PotionController swappedPotion = tiles[swappedW, swappedH].currentPotion;
-
-        tiles[swappedW, swappedH].SetCurrentPotion(tiles[w, h].currentPotion);
-        tiles[w, h].SetCurrentPotion(swappedPotion);
+        if (checkMatchSystem.CheckMatch(tiles, w, h, swappedW, swappedH) >= 2)
+        {
+            Debug.Log("Got matches");
+        }
+        else
+        {
+            yield return MovePotion(tiles[w, h], tiles[swappedW, swappedH]);
+            SwitchTile(w, h, swappedW, swappedH);
+        }
     }
 
     private IEnumerator MovePotion(TileController tile, TileController swappedTile)
@@ -40,6 +48,13 @@ public class SwapSystem
                 Vector3.Lerp(tile2Pos, tile1Pos, t);
             yield return null;
         }
+    }
+
+    private void SwitchTile(int w, int h, int swappedW, int swappedH)
+    {
+        PotionController swappedPotion = tiles[swappedW, swappedH].currentPotion;
+        tiles[swappedW, swappedH].SetCurrentPotion(tiles[w, h].currentPotion);
+        tiles[w, h].SetCurrentPotion(swappedPotion);
     }
 
     private bool ValidIndex(int w, int h, int swappedW, int swappedH)
