@@ -1,15 +1,18 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SwapSystem
 {
     CheckMatchSystem checkMatchSystem;
+    MatchHandlerSystem matchHandlerSystem;
     TileController[,] tiles;
 
     public SwapSystem(TileController[,] tiles)
     {
         this.tiles = tiles;
         checkMatchSystem = new CheckMatchSystem();
+        matchHandlerSystem = new MatchHandlerSystem();
     }
 
     public IEnumerator SwapPotion(int w, int h, int swappedW, int swappedH)
@@ -20,10 +23,10 @@ public class SwapSystem
         yield return MovePotion(tiles[w, h], tiles[swappedW, swappedH]);
         SwitchTile(w, h, swappedW, swappedH);
 
-        if (checkMatchSystem.CheckMatch(tiles, w, h, swappedW, swappedH) >= 2)
-        {
-            Debug.Log("Got matches");
-        }
+        checkMatchSystem.CheckMatch(tiles, w, h, swappedW, swappedH, out HashSet<(int, int)> visited);
+
+        if (visited.Count > 2)
+            yield return matchHandlerSystem.MatchHandle(tiles, visited);
         else
         {
             yield return MovePotion(tiles[w, h], tiles[swappedW, swappedH]);
@@ -48,6 +51,8 @@ public class SwapSystem
                 Vector3.Lerp(tile2Pos, tile1Pos, t);
             yield return null;
         }
+
+        yield return new WaitForSeconds(1);
     }
 
     private void SwitchTile(int w, int h, int swappedW, int swappedH)
