@@ -27,7 +27,7 @@ public class GameController : MonoBehaviour
     {
         tiles = new TileSpawner().SpawnTile(tilePoolSetting.TilePrefab, gameSetting.Width, gameSetting.Height, tileParent);
         poolController = new PoolController(potionPoolSetting, potionParent);
-        dragSystem = new DragSystem(tiles, gameSetting.DragDistance);
+        dragSystem = new DragSystem(tiles, gameSetting.DragDistance, poolController);
         ArrangeSystem.ArrangeBoard(tiles, in gameSetting, poolController);
     }
 

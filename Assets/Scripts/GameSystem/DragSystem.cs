@@ -6,10 +6,10 @@ public class DragSystem
     float dragDistance;
     SwapSystem swapSystem;
 
-    public DragSystem(TileController[,] tiles, float dragDistance)
+    public DragSystem(TileController[,] tiles, float dragDistance, PoolController poolController)
     {
         this.dragDistance = dragDistance;
-        swapSystem = new SwapSystem(tiles);
+        swapSystem = new SwapSystem(tiles, poolController);
     }
 
     public IEnumerator Drag(Vector2 pressedPos, Vector2 releasePos, int w, int h)

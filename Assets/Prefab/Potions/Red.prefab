@@ -98,5 +98,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   potionSetting:
-    PotionColor: 0
+    PotionColor: 2
     PotionType: 0

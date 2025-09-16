@@ -1,6 +1,6 @@
 ﻿public enum EPotionColor
 {
-    Red,
+    Blue,
     Green,
-    Blue
+    Red,
 }

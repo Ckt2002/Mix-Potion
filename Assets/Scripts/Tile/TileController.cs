@@ -5,7 +5,8 @@ public class TileController : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 {
     public PotionController currentPotion { private set; get; }
     //private ObstacleController[] currentObstacle;
-    private int w, h;
+    public int w { private set; get; }
+    public int h { private set; get; }
     private Vector2 clicked;
 
     public void InitTile(in int w, in int h)
@@ -14,7 +15,12 @@ public class TileController : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         this.h = h;
     }
 
-    public void SetCurrentPotion(PotionController potion) => currentPotion = potion;
+    public void SetCurrentPotion(PotionController potion)
+    {
+        currentPotion = potion;
+        if (currentPotion != null)
+            currentPotion.transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
+    }
 
     public void OnPointerDown(PointerEventData eventData)
     {

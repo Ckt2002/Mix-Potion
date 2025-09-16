@@ -30,6 +30,8 @@ public class CheckMatchSystem
         EPotionColor color = tiles[w, h].currentPotion.potion.PotionColor;
         for (int wTemp = w + 1; wTemp < tiles.GetLength(0); wTemp++)
         {
+            if (tiles[wTemp, h].currentPotion == null)
+                break;
             if (tiles[wTemp, h].currentPotion.potion.PotionColor != color)
                 break;
 
@@ -38,6 +40,8 @@ public class CheckMatchSystem
 
         for (int wTemp = w - 1; wTemp >= 0; wTemp--)
         {
+            if (tiles[wTemp, h].currentPotion == null)
+                break;
             if (tiles[wTemp, h].currentPotion.potion.PotionColor != color)
                 break;
 
@@ -57,6 +61,8 @@ public class CheckMatchSystem
         EPotionColor color = tiles[w, h].currentPotion.potion.PotionColor;
         for (int hTemp = h + 1; hTemp < tiles.GetLength(0); hTemp++)
         {
+            if (tiles[w, hTemp].currentPotion == null)
+                break;
             if (tiles[w, hTemp].currentPotion.potion.PotionColor != color)
                 break;
 
@@ -65,6 +71,8 @@ public class CheckMatchSystem
 
         for (int hTemp = h - 1; hTemp >= 0; hTemp--)
         {
+            if (tiles[w, hTemp].currentPotion == null)
+                break;
             if (tiles[w, hTemp].currentPotion.potion.PotionColor != color)
                 break;
 

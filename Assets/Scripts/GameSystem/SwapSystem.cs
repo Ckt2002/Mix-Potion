@@ -8,16 +8,17 @@ public class SwapSystem
     MatchHandlerSystem matchHandlerSystem;
     TileController[,] tiles;
 
-    public SwapSystem(TileController[,] tiles)
+    public SwapSystem(TileController[,] tiles, PoolController poolController)
     {
         this.tiles = tiles;
         checkMatchSystem = new CheckMatchSystem();
-        matchHandlerSystem = new MatchHandlerSystem();
+        matchHandlerSystem = new MatchHandlerSystem(poolController);
     }
 
     public IEnumerator SwapPotion(int w, int h, int swappedW, int swappedH)
     {
-        if (!ValidIndex(w, h, swappedW, swappedH))
+        if (!ValidIndex(w, h, swappedW, swappedH) ||
+            !ValidSwap(w, h, swappedW, swappedH))
             yield break;
 
         yield return MovePotion(tiles[w, h], tiles[swappedW, swappedH]);
@@ -69,5 +70,11 @@ public class SwapSystem
         bool validSwappedW = swappedW > 0 || swappedW < tiles.GetLength(0);
         bool validSwappedH = swappedH > 0 || swappedH < tiles.GetLength(1);
         return validW && validH && validSwappedW && validSwappedH;
+    }
+
+    private bool ValidSwap(int w, int h, int swappedW, int swappedH)
+    {
+        return tiles[w, h].currentPotion != null &&
+            tiles[swappedW, swappedH].currentPotion != null;
     }
 }
