@@ -21,6 +21,8 @@ public class SwapSystem
             !ValidSwap(w, h, swappedW, swappedH))
             yield break;
 
+        GameState.Interactable = false;
+
         yield return MovePotion(tiles[w, h], tiles[swappedW, swappedH]);
         SwitchTile(w, h, swappedW, swappedH);
 
@@ -33,6 +35,8 @@ public class SwapSystem
             yield return MovePotion(tiles[w, h], tiles[swappedW, swappedH]);
             SwitchTile(w, h, swappedW, swappedH);
         }
+
+        GameState.Interactable = true;
     }
 
     private IEnumerator MovePotion(TileController tile, TileController swappedTile)

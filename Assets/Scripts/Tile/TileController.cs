@@ -24,11 +24,13 @@ public class TileController : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        clicked = eventData.position;
+        if (GameState.Interactable)
+            clicked = eventData.position;
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        GameController.Instance.DragPotion(clicked, eventData.position, w, h);
+        if (GameState.Interactable)
+            GameController.Instance.DragPotion(clicked, eventData.position, w, h);
     }
 }

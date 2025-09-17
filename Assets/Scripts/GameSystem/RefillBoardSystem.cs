@@ -54,6 +54,9 @@ public class RefillBoardSystem
         float duration = 1f;
         float t = 0f;
 
+        foreach (var ((w, h), potion) in emptyTiles)
+            tiles[w, h].SetCurrentPotion(potion);
+
         while (t < duration + 0.5f)
         {
             t += Time.deltaTime / duration;
@@ -62,8 +65,5 @@ public class RefillBoardSystem
 
             yield return null;
         }
-
-        foreach (var ((w, h), potion) in emptyTiles)
-            tiles[w, h].SetCurrentPotion(potion);
     }
 }
