@@ -16,9 +16,7 @@ public class PotionPool
         potionDict = new();
 
         for (int i = 0; i < potionPrefabs.Length; i++)
-        {
             potionDict.Add(i, CreatePotionQueue(potionPrefabs[i]));
-        }
     }
 
     public Queue<PotionController> CreatePotionQueue(PotionController potionPrefab)
@@ -66,6 +64,7 @@ public class PotionPool
     public void ReturnPotionToQueue(int index, PotionController potion)
     {
         potion.gameObject.SetActive(false);
-        potionDict[index].Enqueue(potion);
+        if (potionDict.ContainsKey(index))
+            potionDict[index].Enqueue(potion);
     }
 }

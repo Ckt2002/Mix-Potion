@@ -1,0 +1,21 @@
+﻿public enum ESpecialPotion
+{
+    BlueColumn,
+    BlueRow,
+    Bomb,
+    CyanColumn,
+    CyanRow,
+    GreenColumn,
+    GreenRow,
+    Lightning,
+    OrangeColumn,
+    OrangeRow,
+    PinkColumn,
+    PinkRow,
+    PurpleColumn,
+    PurpleRow,
+    RedColumn,
+    RedRow,
+    YellowColumn,
+    YellowRow,
+}

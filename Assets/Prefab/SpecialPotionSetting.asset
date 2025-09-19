@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e69413ba93f1cf48859af578bf5b809, type: 3}
+  m_Name: SpecialPotionSetting
+  m_EditorClassIdentifier: 
+  PotionPrefab:
+  - {fileID: -3609832055886546676, guid: 423c0709baf894740bd39eaf42222446, type: 3}
+  - {fileID: -713014032152122103, guid: 422c783221c0aca49914476db87bd334, type: 3}
+  - {fileID: -1592744948007388916, guid: e09dc6ecbe164a84fa4c30ac3f2f0122, type: 3}
+  - {fileID: -1074035337138097361, guid: f17fcd0e614b81140832856ebafd1788, type: 3}
+  - {fileID: 3585632540528500085, guid: eaae77e3db41efe46b5bf512189accd5, type: 3}
+  - {fileID: 3392243154729773628, guid: d11dad25acfdf974eb253a98324f103c, type: 3}
+  - {fileID: -8360672258139864441, guid: 878af393b16aa5c488fbfdcb34f539e1, type: 3}
+  - {fileID: -77893857872624846, guid: bdbe635517fad4c44bc368167d704e77, type: 3}
+  - {fileID: -6540043619157399594, guid: 397e47bf498f71841a9d29a0c3923d46, type: 3}
+  - {fileID: -5564893077193428351, guid: 80b3544be85c65f49bdbeb53d84ff263, type: 3}
+  - {fileID: 1061788244971284599, guid: 59dccaf188a3cf342bb8ca33660d18a1, type: 3}
+  - {fileID: 4232985256244684083, guid: 77b511cb46b8bf74d9ae77f1a39f7a8a, type: 3}
+  - {fileID: 5276260193456541613, guid: dd9a1f44d768f8d41ab8911d7b57ce08, type: 3}
+  - {fileID: 6985432867400884383, guid: 40a6bfc8ab01db64f9787c4c24c8bc54, type: 3}
+  - {fileID: -1495932845931192897, guid: ad954d341a319f54889283cd108819ee, type: 3}
+  - {fileID: 5594242789390094171, guid: d033797654852eb48a8bde3c67c994c1, type: 3}
+  - {fileID: 1817589220527295504, guid: 4bbb456e14d56db4c95e24b41344e7ab, type: 3}
+  - {fileID: -2769286434032902515, guid: 426e6aa2ce756994e9bb4e15c2ccc5ac, type: 3}
+  SpawnNumber: 10

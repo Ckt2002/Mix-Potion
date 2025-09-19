@@ -5,7 +5,8 @@ public class GameController : MonoBehaviour
     public static GameController Instance;
 
     [SerializeField] SOTilePoolSetting tilePoolSetting;
-    [SerializeField] SOPotionPoolSetting potionPoolSetting;
+    [SerializeField] SOPotionPoolSetting normalPotionPoolSetting;
+    [SerializeField] SOPotionPoolSetting specialPotionPoolSetting;
     [SerializeField] SOGameSetting gameSetting;
 
     public Transform tileParent;
@@ -25,8 +26,10 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
-        tiles = new TileSpawner().SpawnTile(tilePoolSetting.TilePrefab, gameSetting.Width, gameSetting.Height, tileParent);
-        poolController = new PoolController(potionPoolSetting, potionParent);
+        tiles = new TileSpawner().SpawnTile(tilePoolSetting.TilePrefab,
+            gameSetting.Width, gameSetting.Height, tileParent);
+        poolController = new PoolController(normalPotionPoolSetting,
+            specialPotionPoolSetting, potionParent);
         dragSystem = new DragSystem(tiles, gameSetting.DragDistance, poolController);
         ArrangeSystem.ArrangeBoard(tiles, in gameSetting, poolController);
     }

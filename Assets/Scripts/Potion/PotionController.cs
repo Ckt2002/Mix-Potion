@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 
-public class PotionController : MonoBehaviour
+public abstract class PotionController : MonoBehaviour
 {
-    [SerializeField] Potion potionSetting;
+    [SerializeField] protected Potion potionSetting;
 
-    public Potion potion => potionSetting;
+    public Potion getPotionSetting => potionSetting;
+
+    public abstract void DestroyPotion();
 }

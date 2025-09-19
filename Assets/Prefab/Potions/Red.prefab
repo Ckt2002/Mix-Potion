@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6973675110152200821}
   - component: {fileID: 7881946344224148738}
-  - component: {fileID: 5292754511438970430}
+  - component: {fileID: 6091496808618148728}
   m_Layer: 0
   m_Name: Red
   m_TagString: Untagged
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5292754511438970430
+--- !u!114 &6091496808618148728
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,9 +94,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 7633738097928542820}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50e17186411b94746892bcc6a29bf55b, type: 3}
+  m_Script: {fileID: 11500000, guid: b24b12f411622d94bbb8eff0a1ef38e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   potionSetting:
-    PotionColor: 2
+    PotionColor: 6
     PotionType: 0

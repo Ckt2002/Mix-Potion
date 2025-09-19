@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4934742643596104246}
   - component: {fileID: 7023276824057225037}
-  - component: {fileID: 1772822669701574868}
+  - component: {fileID: -6473713763639552032}
   m_Layer: 0
   m_Name: Green
   m_TagString: Untagged
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1772822669701574868
+--- !u!114 &-6473713763639552032
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,9 +94,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1536192973644400499}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50e17186411b94746892bcc6a29bf55b, type: 3}
+  m_Script: {fileID: 11500000, guid: b24b12f411622d94bbb8eff0a1ef38e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   potionSetting:
-    PotionColor: 1
+    PotionColor: 2
     PotionType: 0
