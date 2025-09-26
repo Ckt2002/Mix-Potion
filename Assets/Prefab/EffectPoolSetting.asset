@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 707509ced0751fe4d8c47a088f0a007e, type: 3}
+  m_Name: EffectPoolSetting
+  m_EditorClassIdentifier: 
+  Prefab:
+  - {fileID: 3377781344799472558, guid: d3f621cbe1d3a53418bd59bebaa8bbbf, type: 3}
+  - {fileID: 5481380951458734573, guid: 4c82cbd72fc618742ad6fe489e7c64b2, type: 3}
+  - {fileID: 3377781344799472558, guid: dc367baee619dcb4388d1ba16ff9c684, type: 3}
+  - {fileID: 5481380951458734573, guid: 5b233e00a6bab6c449a000c14fd3a072, type: 3}
+  SpawnNumber: 10

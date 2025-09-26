@@ -15,4 +15,4 @@ MonoBehaviour:
   Width: 7
   Height: 7
   Spacing: 1.2
-  DragDistance: 50
+  DragThreshold: 10

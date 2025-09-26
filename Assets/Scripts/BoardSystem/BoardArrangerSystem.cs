@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-public class ArrangeSystem
+public static class BoardArrangerSystem
 {
-    public static void ArrangeBoard(TileController[,] tiles, in SOGameSetting gameSetting, PoolController poolController)
+    public static void ArrangeTiles(TileController[,] tiles, SOGameSetting gameSetting, PoolController poolController)
     {
         for (int w = 0; w < gameSetting.Width; w++)
         {

@@ -6,25 +6,32 @@ public class PoolController
 {
     PotionPool normalPotionPool;
     PotionPool specialPotionPool;
+    EffectPool effectPool;
 
     public PoolController(SOPotionPoolSetting normalPotionPoolSetting,
-        SOPotionPoolSetting specialPotionPoolSetting, Transform potionParent)
+        SOPotionPoolSetting specialPotionPoolSetting,
+        SOEffectPoolSetting effectPoolSetting,
+        SOParticleColor effectColor,
+        Transform potionParent, Transform effectParent)
     {
-        normalPotionPool = new PotionPool(normalPotionPoolSetting.PotionPrefab,
+        normalPotionPool = new PotionPool(normalPotionPoolSetting.Prefab,
             normalPotionPoolSetting.SpawnNumber, potionParent);
 
-        specialPotionPool = new PotionPool(specialPotionPoolSetting.PotionPrefab,
+        specialPotionPool = new PotionPool(specialPotionPoolSetting.Prefab,
             specialPotionPoolSetting.SpawnNumber, potionParent);
+
+        effectPool = new EffectPool(effectPoolSetting.Prefab, effectColor.color,
+            effectPoolSetting.SpawnNumber, effectParent);
     }
 
-    public PotionController GetNormalPotion(int index)
-        => normalPotionPool.Get(index);
+    public PotionController GetNormalPotion(int color)
+        => normalPotionPool.Get(color);
 
     public PotionController GetRandomNormalPotion()
         => normalPotionPool.GetRandomly();
 
-    public void ReturnNormalPotion(int index, PotionController potion)
-        => normalPotionPool.ReturnPotionToQueue(index, potion);
+    public void ReturnNormalPotion(int color, PotionController potion)
+        => normalPotionPool.ReturnPotionToQueue(color, potion);
 
     public PotionController GetSpecialPotion(EPotionColor potionColor, EPotionType potionType)
     {
@@ -55,4 +62,13 @@ public class PoolController
         Enum.TryParse<ESpecialPotion>(name.ToString(), out ESpecialPotion resultEnum);
         specialPotionPool.ReturnPotionToQueue((int)resultEnum, potion);
     }
+
+    public GameObject GetNormalEffect(EEffectType effectType)
+        => effectPool.GetNormalEffect((int)effectType);
+
+    public GameObject GetSpecialEffect(EEffectType effectType)
+        => effectPool.Get((int)effectType);
+
+    public void ReturnEffect(EEffectType effectType, GameObject effect)
+        => effectPool.ReturnEffectToQueue((int)effectType, effect);
 }

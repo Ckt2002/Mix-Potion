@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e69413ba93f1cf48859af578bf5b809, type: 3}
+  m_Script: {fileID: 11500000, guid: 663b2b8f4c5abf34e866ca48b09ea523, type: 3}
   m_Name: SpecialPotionSetting
   m_EditorClassIdentifier: 
-  PotionPrefab:
+  Prefab:
   - {fileID: -3609832055886546676, guid: 423c0709baf894740bd39eaf42222446, type: 3}
   - {fileID: -713014032152122103, guid: 422c783221c0aca49914476db87bd334, type: 3}
   - {fileID: -1592744948007388916, guid: e09dc6ecbe164a84fa4c30ac3f2f0122, type: 3}

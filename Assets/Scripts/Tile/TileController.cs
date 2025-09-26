@@ -4,10 +4,9 @@ using UnityEngine.EventSystems;
 public class TileController : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     public PotionController currentPotion { private set; get; }
-    //private ObstacleController[] currentObstacle;
     public int w { private set; get; }
     public int h { private set; get; }
-    private Vector2 clicked;
+    private Vector2 clickedPosition;
 
     public void InitTile(in int w, in int h)
     {
@@ -25,12 +24,12 @@ public class TileController : MonoBehaviour, IPointerDownHandler, IPointerUpHand
     public void OnPointerDown(PointerEventData eventData)
     {
         if (GameState.Interactable)
-            clicked = eventData.position;
+            clickedPosition = eventData.position;
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
         if (GameState.Interactable)
-            GameController.Instance.DragPotion(clicked, eventData.position, w, h);
+            StartCoroutine(BoardController.Instance.ProcessMove(clickedPosition, eventData.position, w, h));
     }
 }
