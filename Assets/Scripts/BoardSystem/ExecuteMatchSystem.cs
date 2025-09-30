@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ExecuteMatchSystem
 {
+    private static Dictionary<(int, int), (EPotionColor, EPotionType)> specialToSpawn = new();
+
     public static IEnumerator Execute(TileController[,] tiles, Queue<List<PotionMatch>> matchBatches,
         PoolController poolController)
     {
@@ -19,9 +21,14 @@ public class ExecuteMatchSystem
                 EActionType actionType = match.ActionType;
 
                 if (actionType == EActionType.NormalDestroy)
-                    match.TargetIndex.Add(match.SourceIndex);
+                {
+                    match.TargetsIndex.Add(match.SourceIndex);
 
-                foreach ((int w, int h) in match.TargetIndex)
+                    // Find and create special potions
+                    yield return GenerateSpecialPotion.DectectSpecialPotions(match.TargetsIndex, tiles, specialToSpawn);
+                }
+
+                foreach ((int w, int h) in match.TargetsIndex)
                 {
                     TileController tile = tiles[w, h];
                     PotionController potion = tile.currentPotion;
@@ -39,9 +46,12 @@ public class ExecuteMatchSystem
 
             yield return DestroySystem.Destroy(poolController, tiles, batch);
 
+            yield return GenerateSpecialPotion.Generate(tiles, poolController, specialToSpawn);
+
             yield return new WaitForSeconds(0.1f);
         }
 
+        specialToSpawn.Clear();
         yield break;
     }
 }

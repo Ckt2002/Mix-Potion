@@ -31,17 +31,17 @@ public class NormalComboSystem
         PotionMatch newMatches = new PotionMatch();
         newMatches.ActionType = EActionType.NormalDestroy;
         newMatches.SourceIndex = (w, h);
-        newMatches.TargetIndex = new();
+        newMatches.TargetsIndex = new();
 
         var row = FindRowMatches(tiles, w, h, color);
         var col = FindColMatches(tiles, w, h, color);
 
         if (row.Count >= 3)
-            newMatches.TargetIndex.UnionWith(row);
+            newMatches.TargetsIndex.UnionWith(row);
         if (col.Count >= 3)
-            newMatches.TargetIndex.UnionWith(col);
+            newMatches.TargetsIndex.UnionWith(col);
 
-        if (newMatches.TargetIndex.Count < 3)
+        if (newMatches.TargetsIndex.Count < 3)
             return null;
 
         return newMatches;

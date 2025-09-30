@@ -10,7 +10,7 @@ public class DestroySystem
         List<PotionMatch> batch)
     {
         foreach (PotionMatch match in batch)
-            foreach ((int w, int h) in match.TargetIndex)
+            foreach ((int w, int h) in match.TargetsIndex)
             {
                 potionsToDestroy.Add(tiles[w, h].currentPotion);
                 tiles[w, h].SetCurrentPotion(null);

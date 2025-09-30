@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PotionMovementSystem
@@ -25,5 +26,38 @@ public class PotionMovementSystem
         }
 
         yield return new WaitForSeconds(0.1f);
+    }
+
+    public static IEnumerator MoveStraightDown(Dictionary<Vector3, Transform> potionsToMove)
+    {
+        int arrMax = potionsToMove.Count;
+        Vector3[] potionsOriginalPos = new Vector3[arrMax];
+
+        int i = 0;
+
+        foreach (var item in potionsToMove)
+        {
+            potionsOriginalPos[i] = item.Value.localPosition;
+            i++;
+        }
+
+        float duration = 0.15f;
+        float t = 0f;
+
+        while (t < 1f)
+        {
+            i = 0;
+            t += Time.deltaTime / duration;
+
+            foreach (var item in potionsToMove)
+            {
+                item.Value.localPosition = Vector3.Lerp(potionsOriginalPos[i], item.Key, t);
+                i++;
+            }
+
+            yield return null;
+        }
+
+        yield break;
     }
 }

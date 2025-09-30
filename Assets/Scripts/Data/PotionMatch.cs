@@ -4,5 +4,5 @@ public class PotionMatch
 {
     public EActionType ActionType;
     public (int w, int h) SourceIndex;
-    public HashSet<(int w, int h)> TargetIndex;
+    public HashSet<(int w, int h)> TargetsIndex;
 }
