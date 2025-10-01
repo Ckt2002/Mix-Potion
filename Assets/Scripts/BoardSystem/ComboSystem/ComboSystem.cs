@@ -13,7 +13,7 @@ public class ComboSystem
         EPotionType type1 = potionSetting1.PotionType;
         EPotionType type2 = potionSetting2.PotionType;
 
-        if (BothNormal(type1, type2))
+        if (BothNormal(type1, type2) || NormalStripe(type1, type2) || NormalBomb(type1, type2))
         {
             yield return NormalComboSystem.FindMatch(tiles, w, h, swappedW, swappedH, matchBatches);
             yield break;
@@ -22,6 +22,25 @@ public class ComboSystem
         yield break;
     }
 
-    private static bool BothNormal(EPotionType type1, EPotionType potion2)
-        => type1 == EPotionType.Normal && potion2 == EPotionType.Normal;
+    #region Normal Condition
+    private static bool BothNormal(EPotionType type1, EPotionType type2)
+        => type1 == EPotionType.Normal && type2 == EPotionType.Normal;
+
+    private static bool NormalStripe(EPotionType type1, EPotionType type2)
+    {
+        bool norRow = type1 == EPotionType.Normal && type2 != EPotionType.Row ||
+            type1 == EPotionType.Row && type2 != EPotionType.Normal;
+        bool norCol = type1 == EPotionType.Normal && type2 != EPotionType.Column ||
+            type1 == EPotionType.Column && type2 != EPotionType.Normal;
+
+        return norRow || norCol;
+    }
+
+    private static bool NormalBomb(EPotionType type1, EPotionType type2)
+        => type1 == EPotionType.Normal && type2 != EPotionType.Bomb ||
+            type1 == EPotionType.Bomb && type2 != EPotionType.Normal;
+    #endregion
+
+    private static bool BothBomb(EPotionType type1, EPotionType potion2)
+        => type1 == EPotionType.Bomb && potion2 == EPotionType.Bomb;
 }

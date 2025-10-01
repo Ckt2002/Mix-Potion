@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExecuteMatchSystem
+public class ExecuteSystem
 {
     private static Dictionary<(int, int), (EPotionColor, EPotionType)> specialToSpawn = new();
 
-    public static IEnumerator Execute(TileController[,] tiles, Queue<List<PotionMatch>> matchBatches,
+    public static IEnumerator ExecuteMatchPotions(TileController[,] tiles, Queue<List<PotionMatch>> matchBatches,
         PoolController poolController)
     {
         int width = tiles.GetLength(0);
@@ -48,7 +48,7 @@ public class ExecuteMatchSystem
 
             yield return GenerateSpecialPotion.Generate(tiles, poolController, specialToSpawn);
 
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.5f);
         }
 
         specialToSpawn.Clear();

@@ -56,9 +56,9 @@ public class BoardController : MonoBehaviour
         else
         {
             // Activate special potions
-            yield return ExecuteMatchSystem.Execute(tiles, matchBatches, poolController);
+            yield return ExecuteSystem.ExecuteMatchPotions(tiles, matchBatches, poolController);
             // Refill board
-            yield return RefillSystem.RefillBoard(tiles, width, height);
+            yield return RefillSystem.RefillBoard(tiles, width, height, poolController);
         }
 
         yield return null;

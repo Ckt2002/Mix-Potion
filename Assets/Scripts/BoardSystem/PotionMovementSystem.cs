@@ -28,16 +28,16 @@ public class PotionMovementSystem
         yield return new WaitForSeconds(0.1f);
     }
 
-    public static IEnumerator MoveStraightDown(Dictionary<Vector3, Transform> potionsToMove)
+    public static IEnumerator MoveStraightDown(List<(Vector3, Transform)> potionsToMove)
     {
         int arrMax = potionsToMove.Count;
         Vector3[] potionsOriginalPos = new Vector3[arrMax];
 
         int i = 0;
 
-        foreach (var item in potionsToMove)
+        foreach ((Vector3 targetPos, Transform potionTransform) in potionsToMove)
         {
-            potionsOriginalPos[i] = item.Value.localPosition;
+            potionsOriginalPos[i] = potionTransform.localPosition;
             i++;
         }
 
@@ -49,9 +49,9 @@ public class PotionMovementSystem
             i = 0;
             t += Time.deltaTime / duration;
 
-            foreach (var item in potionsToMove)
+            foreach ((Vector3 targetPos, Transform potionTransform) in potionsToMove)
             {
-                item.Value.localPosition = Vector3.Lerp(potionsOriginalPos[i], item.Key, t);
+                potionTransform.localPosition = Vector3.Lerp(potionsOriginalPos[i], targetPos, t);
                 i++;
             }
 

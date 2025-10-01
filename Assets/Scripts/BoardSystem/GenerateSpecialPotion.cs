@@ -22,31 +22,32 @@ public class GenerateSpecialPotion
                 }
             }
 
-        var row1 = rows.Select(group => group.OrderBy(item => item.Item1)).ToList();
-        var col1 = cols.Select(group => group.OrderBy(item => item.Item1)).ToList();
+        var rowGroups = rows.Select(group => group.OrderBy(item => item.Item1).ToList()).ToList();
+        var colGroups = cols.Select(group => group.OrderBy(item => item.Item1).ToList()).ToList();
 
-        var (wRow, hRow) = row1.First().ElementAt(row1.First().Count() / 2);
-        var (wCol, hCol) = col1.First().ElementAt(col1.First().Count() / 2);
+        var maxRowGroup = rowGroups.OrderByDescending(g => g.Count).First();
+        var maxColGroup = colGroups.OrderByDescending(g => g.Count).First();
 
-        if (row1.Any(r => r.Count() >= 5))
+        var (wRow, hRow) = rowGroups.First().ElementAt(rowGroups.First().Count() / 2);
+        var (wCol, hCol) = colGroups.First().ElementAt(colGroups.First().Count() / 2);
+
+        if (rowGroups.Any(r => r.Count() >= 5))
             specialToSpawn.Add((wRow, hRow), (EPotionColor.None, EPotionType.Lightning));
-        else if (row1.Any(r => r.Count() == 4))
+        else if (rowGroups.Any(r => r.Count() == 4))
         {
             EPotionColor color = tiles[wRow, hRow].currentPotion.getPotionSetting.PotionColor;
             EPotionType type = (EPotionType)UnityEngine.Random.Range((int)EPotionType.Row, (int)EPotionType.Column + 1);
             specialToSpawn.Add((wRow, hRow), (color, type));
         }
 
-        if (col1.Any(c => c.Count() >= 5))
+        if (colGroups.Any(c => c.Count() >= 5))
             specialToSpawn.Add((wCol, hCol), (EPotionColor.None, EPotionType.Lightning));
-        else if (col1.Any(c => c.Count() == 4))
+        else if (colGroups.Any(c => c.Count() == 4))
         {
-            EPotionColor color = tiles[wCol, wCol].currentPotion.getPotionSetting.PotionColor;
+            EPotionColor color = tiles[wCol, hCol].currentPotion.getPotionSetting.PotionColor;
             EPotionType type = (EPotionType)UnityEngine.Random.Range((int)EPotionType.Row, (int)EPotionType.Column + 1);
-            specialToSpawn.Add((wCol, wCol), (color, type));
+            specialToSpawn.Add((wCol, hCol), (color, type));
         }
-
-        yield break;
     }
 
 
@@ -63,6 +64,5 @@ public class GenerateSpecialPotion
             potion.transform.localPosition = tile.transform.localPosition;
             tile.SetCurrentPotion(potion);
         }
-        yield break;
     }
 }
