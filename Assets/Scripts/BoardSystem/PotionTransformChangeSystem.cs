@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PotionMovementSystem
+public class PotionTransformChangeSystem
 {
     public static IEnumerator SwapPotion(TileController tile1, TileController tile2,
         PotionController potion1, PotionController potion2)
@@ -60,4 +60,5 @@ public class PotionMovementSystem
 
         yield break;
     }
+
 }

@@ -3,7 +3,7 @@
 
     public bool isActivated { get; private set; }
 
-    public void ActiveSpecial() => isActivated = true;
+    public void ActivateSpecial() => isActivated = true;
 
     private void OnEnable()
     {

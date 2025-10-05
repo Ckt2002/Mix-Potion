@@ -12,6 +12,9 @@ public class DestroySystem
         foreach (PotionMatch match in batch)
             foreach ((int w, int h) in match.TargetsIndex)
             {
+                if (tiles[w, h].currentPotion == null)
+                    continue;
+
                 potionsToDestroy.Add(tiles[w, h].currentPotion);
                 tiles[w, h].SetCurrentPotion(null);
             }

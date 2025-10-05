@@ -30,10 +30,13 @@ public class BoardController : MonoBehaviour
     public void SetupBoard(TileController[,] tiles, SOGameSetting gameSetting, PoolController poolController)
     {
         this.tiles = tiles;
+
         width = tiles.GetLength(0);
         height = tiles.GetLength(1);
+
         this.poolController = poolController;
         this.gameSetting = gameSetting;
+
         BoardArrangerSystem.ArrangeTiles(tiles, gameSetting, poolController);
     }
 
@@ -48,16 +51,15 @@ public class BoardController : MonoBehaviour
         if (!swapped)
             yield break;
 
-        yield return ComboSystem.DetectCombo(tiles, w, h, swappedIndex.w, swappedIndex.h, matchBatches);
+        yield return ComboSystem.DetectCombo(tiles, w, h, swappedIndex.w, swappedIndex.h, matchBatches, poolController);
 
         if (matchBatches.Count == 0)
             yield return SwapSystem.Swap(clickedPos, releasePos, gameSetting.DragThreshold,
                 w, h, width, height, tiles);
         else
         {
-            // Activate special potions
-            yield return ExecuteSystem.ExecuteMatchPotions(tiles, matchBatches, poolController);
-            // Refill board
+            yield return ExecuteSystem.ExecuteMatchPotions(tiles, w, h, swappedIndex.w, swappedIndex.h, matchBatches, poolController);
+
             yield return RefillSystem.RefillBoard(tiles, width, height, poolController);
         }
 

@@ -12,7 +12,7 @@ public class GameController : MonoBehaviour
     [SerializeField] SOParticleColor particleColor;
     [SerializeField] SOGameSetting gameSetting;
 
-    [Header("Parents")]
+    [Header("Parent Transform")]
     public Transform tileParent;
     public Transform potionParent;
     public Transform effectParent;

@@ -46,7 +46,7 @@ public static class SwapSystem
         PotionController potion1 = tile1.currentPotion;
         PotionController potion2 = tile2.currentPotion;
 
-        yield return PotionMovementSystem.SwapPotion(tile1, tile2, potion1, potion2);
+        yield return PotionTransformChangeSystem.SwapPotion(tile1, tile2, potion1, potion2);
 
         tile1.SetCurrentPotion(potion2);
         tile2.SetCurrentPotion(potion1);

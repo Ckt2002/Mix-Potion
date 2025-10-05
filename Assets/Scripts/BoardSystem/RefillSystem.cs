@@ -66,7 +66,7 @@ public class RefillSystem
         if (potionsToMove.Count > 0)
         {
             //yield return new WaitForSeconds(0.5f);
-            yield return PotionMovementSystem.MoveStraightDown(potionsToMove);
+            yield return PotionTransformChangeSystem.MoveStraightDown(potionsToMove);
             potionsToMove.Clear();
         }
     }
