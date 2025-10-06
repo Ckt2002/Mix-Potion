@@ -58,7 +58,7 @@ public class BoardController : MonoBehaviour
                 w, h, width, height, tiles);
         else
         {
-            yield return ExecuteSystem.ExecuteMatchPotions(tiles, w, h, swappedIndex.w, swappedIndex.h, matchBatches, poolController);
+            yield return ExecuteSystem.ExecuteMatchPotions(tiles, matchBatches, poolController);
 
             yield return RefillSystem.RefillBoard(tiles, width, height, poolController);
         }
