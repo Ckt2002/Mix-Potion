@@ -28,6 +28,12 @@ public class ComboSystem
             yield break;
         }
 
+        if (BothBomb(type1, type2))
+        {
+            yield return BombComboSystem.FindMatch(tiles, w, h, swappedW, swappedH, matchBatches);
+            yield break;
+        }
+
         yield break;
     }
 
