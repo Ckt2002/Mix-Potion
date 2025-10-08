@@ -25,21 +25,21 @@ public class ExecuteSystem
                     match.TargetsIndex.Add(match.SourceIndex);
 
                     // Find and create special potions
-                    yield return GenerateSpecialPotion.DectectSpecialPotions(match.TargetsIndex, tiles, specialToSpawn);
+                    yield return GenerateSpecialPotion.DetectSpecialPotions(match.TargetsIndex, tiles, specialToSpawn);
                 }
 
-                //foreach ((int w, int h) in match.TargetsIndex)
-                //{
-                //    TileController tile = tiles[w, h];
-                //    PotionController potion = tile.currentPotion;
-                //    EPotionType type = tile.currentPotion.getPotionSetting.PotionType;
+                // foreach ((int w, int h) in match.TargetsIndex)
+                // {
+                //     TileController tile = tiles[w, h];
+                //     PotionController potion = tile.currentPotion;
+                //     EPotionType type = tile.currentPotion.getPotionSetting.PotionType;
 
-                //    if (type != EPotionType.Normal && CheckValidSystem.PotionIsActivated((SpecialPotion)potion))
-                //    {
-                //        // Create new batch and add to queue
-                //        continue;
-                //    }
-                //}
+                //     if (type != EPotionType.Normal && CheckValidSystem.PotionIsActivated((SpecialPotion)potion))
+                //     {
+                //         // Create new batch and add to queue
+                //         continue;
+                //     }
+                // }
 
                 // Run effect
             }

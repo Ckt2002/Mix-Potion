@@ -4,7 +4,7 @@ using System.Linq;
 
 public class GenerateSpecialPotion
 {
-    public static IEnumerator DectectSpecialPotions(HashSet<(int, int)> targetIndexes, TileController[,] tiles,
+    public static IEnumerator DetectSpecialPotions(HashSet<(int, int)> targetIndexes, TileController[,] tiles,
         Dictionary<(int, int), (EPotionColor, EPotionType)> specialToSpawn)
     {
         var rows = targetIndexes.GroupBy(index => index.Item2);

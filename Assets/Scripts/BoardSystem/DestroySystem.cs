@@ -19,7 +19,7 @@ public class DestroySystem
                 tiles[w, h].SetCurrentPotion(null);
             }
 
-        float duration = 0.15f;
+        const float duration = 0.15f;
         float timer = 0f;
 
         while (timer < 1f)

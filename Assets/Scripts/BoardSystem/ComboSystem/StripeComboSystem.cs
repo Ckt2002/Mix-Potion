@@ -32,7 +32,7 @@ public class StripeComboSystem
             newPotion.transform.localPosition = tile1.transform.localPosition;
             tile1.SetCurrentPotion(newPotion);
 
-            yield return null;
+            yield return new WaitForSeconds(1.5f);
         }
 
         if (potionSetting2.PotionType == EPotionType.Row)
