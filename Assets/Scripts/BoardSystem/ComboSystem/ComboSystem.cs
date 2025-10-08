@@ -48,6 +48,13 @@ public class ComboSystem
             yield break;
         }
 
+        if (LightNormal(type1, type2))
+        {
+            yield return LightNormalComboSystem.FindMatch(tiles, w, h, swappedW, swappedH, matchBatches,
+                potionSetting1, potionSetting2);
+            yield break;
+        }
+
         yield break;
     }
 
@@ -59,9 +66,9 @@ public class ComboSystem
     private static bool NormalStripe(EPotionType type1, EPotionType type2)
     {
         bool norRow = type1 == EPotionType.Normal && type2 == EPotionType.Row ||
-                      type1 == EPotionType.Row && type2 == EPotionType.Normal;
+            type1 == EPotionType.Row && type2 == EPotionType.Normal;
         bool norCol = type1 == EPotionType.Normal && type2 == EPotionType.Column ||
-                      type1 == EPotionType.Column && type2 == EPotionType.Normal;
+            type1 == EPotionType.Column && type2 == EPotionType.Normal;
 
         return norRow || norCol;
     }
@@ -81,19 +88,26 @@ public class ComboSystem
         return type1Stripe && type2Stripe;
     }
 
+    private static bool BOthLightning(EPotionType type1, EPotionType type2)
+        => type1 == EPotionType.Lightning && type2 == EPotionType.Lightning;
+
     private static bool LightStripe(EPotionType type1, EPotionType type2)
     {
         bool lightRow = type1 == EPotionType.Lightning && type2 == EPotionType.Row ||
-                        type1 == EPotionType.Row && type2 == EPotionType.Lightning;
+            type1 == EPotionType.Row && type2 == EPotionType.Lightning;
         bool lightCol = type1 == EPotionType.Lightning && type2 == EPotionType.Column ||
-                        type1 == EPotionType.Column && type2 == EPotionType.Lightning;
+            type1 == EPotionType.Column && type2 == EPotionType.Lightning;
 
         return lightRow || lightCol;
     }
 
     private static bool LightBomb(EPotionType type1, EPotionType type2)
         => type1 == EPotionType.Lightning && type2 == EPotionType.Bomb ||
-                    type1 == EPotionType.Bomb && type2 == EPotionType.Lightning;
+            type1 == EPotionType.Bomb && type2 == EPotionType.Lightning;
+
+    private static bool LightNormal(EPotionType type1, EPotionType type2)
+        => type1 == EPotionType.Lightning && type2 == EPotionType.Normal ||
+            type1 == EPotionType.Normal && type2 == EPotionType.Lightning;
 
     #endregion
 }

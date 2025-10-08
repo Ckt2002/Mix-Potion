@@ -1,18 +1,16 @@
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
-public class LightStripeComboSystem
+public class LightNormalComboSystem
 {
-    private static List<TileController> tilesToChange = new();
-
     public static IEnumerator FindMatch(TileController[,] tiles, int w, int h, int swappedW, int swappedH,
-        Queue<List<PotionMatch>> matches, Potion potionSetting1, Potion potionSetting2, PoolController poolController)
+        Queue<List<PotionMatch>> matches, Potion potionSetting1, Potion potionSetting2)
     {
         PotionMatch match = new PotionMatch()
         {
             ActionType = EActionType.Lightning,
-            SourceIndex = (swappedW, swappedH),
+            SourceIndex = (w, h),
             TargetsIndex = new()
         };
 
@@ -43,32 +41,10 @@ public class LightStripeComboSystem
                     continue;
 
                 match.TargetsIndex.Add((wTemp, hTemp));
-                if (potionSetting.PotionType == EPotionType.Normal)
-                    tilesToChange.Add(tile);
             }
         }
 
-        foreach (TileController tile in tilesToChange)
-        {
-            EPotionType swipeType = (EPotionType)Random.Range((int)EPotionType.Row, (int)EPotionType.Column + 1);
-
-            PotionController potion = tile.currentPotion;
-            poolController.ReturnNormalPotion((int)potion.getPotionSetting.PotionColor, potion);
-            tile.SetCurrentPotion(null);
-
-            PotionController newPotion = poolController.GetSpecialPotion(colorToGenerate, swipeType);
-            newPotion.transform.localPosition = tile.transform.localPosition;
-            tile.SetCurrentPotion(newPotion);
-
-            // Spawn and run effects
-        }
-
-        yield return new WaitForSeconds(1.5f);
-
-        // Wait for effects complete
         matches.Enqueue(new() { match });
-        tilesToChange.Clear();
-
-        yield return null;
+        yield break;
     }
 }
