@@ -51,7 +51,7 @@ public class BoardController : MonoBehaviour
         if (!swapped)
             yield break;
 
-        yield return ComboSystem.DetectCombo(tiles, w, h, swappedIndex.w, swappedIndex.h, matchBatches, poolController);
+        yield return ComboSystem.DetectComboAfterSwap(tiles, w, h, swappedIndex.w, swappedIndex.h, matchBatches, poolController);
 
         if (matchBatches.Count == 0)
             yield return SwapSystem.Swap(clickedPos, releasePos, gameSetting.DragThreshold,

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class ComboSystem
 {
-    public static IEnumerator DetectCombo(TileController[,] tiles, int w, int h, int swappedW, int swappedH,
+    public static IEnumerator DetectComboAfterSwap(TileController[,] tiles, int w, int h, int swappedW, int swappedH,
         Queue<List<PotionMatch>> matchBatches, PoolController poolController)
     {
         TileController tile1 = tiles[w, h];
@@ -34,6 +34,18 @@ public class ComboSystem
             yield break;
         }
 
+        if (BothLightning(type1, type2))
+        {
+            yield return LightningComboSystem.FindMatch(tiles, w, h, swappedW, swappedH, matchBatches);
+            yield break;
+        }
+
+        if (BombStripe(type1, type2))
+        {
+            yield return BombStripeComboSystem.FindMatch(tiles, w, h, swappedW, swappedH, matchBatches, type2);
+            yield break;
+        }
+
         if (LightStripe(type1, type2))
         {
             yield return LightStripeComboSystem.FindMatch(tiles, w, h, swappedW, swappedH, matchBatches,
@@ -54,8 +66,6 @@ public class ComboSystem
                 potionSetting1, potionSetting2);
             yield break;
         }
-
-        yield break;
     }
 
     #region Combo Conditions
@@ -88,8 +98,19 @@ public class ComboSystem
         return type1Stripe && type2Stripe;
     }
 
-    private static bool BOthLightning(EPotionType type1, EPotionType type2)
+    private static bool BothLightning(EPotionType type1, EPotionType type2)
         => type1 == EPotionType.Lightning && type2 == EPotionType.Lightning;
+
+    private static bool BombStripe(EPotionType type1, EPotionType type2)
+    {
+        bool bombRow = type1 == EPotionType.Bomb && type2 == EPotionType.Row ||
+            type1 == EPotionType.Row && type2 == EPotionType.Bomb;
+
+        bool bombCol = type1 == EPotionType.Bomb && type2 == EPotionType.Column ||
+            type1 == EPotionType.Column && type2 == EPotionType.Bomb;
+
+        return bombRow || bombCol;
+    }
 
     private static bool LightStripe(EPotionType type1, EPotionType type2)
     {
