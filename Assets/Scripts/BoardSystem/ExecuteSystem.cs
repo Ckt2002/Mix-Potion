@@ -31,6 +31,21 @@ public class ExecuteSystem
                     ExecuteSpecialPotions(tiles, width, height, match, matchBatches);
                 }
 
+                if (actionType == EActionType.Swipe)
+                {
+
+                }
+
+                if (actionType == EActionType.Lightning)
+                {
+
+                }
+
+                if (actionType == EActionType.Explode)
+                {
+
+                }
+
                 // Run effect
             }
 
@@ -87,6 +102,7 @@ public class ExecuteSystem
 
                     default:
                         newMatch.ActionType = EActionType.Lightning;
+                        DestroyRandomly(tiles, width, height, newMatch.TargetsIndex);
                         break;
                 }
 
@@ -115,6 +131,27 @@ public class ExecuteSystem
                     continue;
 
                 targetsIndex.Add((wTemp, hTemp));
+            }
+        }
+    }
+
+    private static void DestroyRandomly(TileController[,] tiles, int width, int height,
+        HashSet<(int w, int h)> targetsIndex)
+    {
+        EPotionColor color = (EPotionColor)Random.Range((int)EPotionColor.Blue, (int)EPotionColor.Orange + 1);
+
+        for (int w = 0; w < width; w++)
+        {
+            for (int h = 0; h < height; h++)
+            {
+                TileController tile = tiles[w, h];
+                if (!CheckValidSystem.ValidTile(tile))
+                    continue;
+                PotionController potion = tile.currentPotion;
+                if (potion.getPotionSetting.PotionColor != color)
+                    continue;
+
+                targetsIndex.Add((w, h));
             }
         }
     }

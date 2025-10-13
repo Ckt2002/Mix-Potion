@@ -28,6 +28,7 @@ public class LightNormalComboSystem
             match.SourceIndex = (w, h);
         }
 
+
         for (int wTemp = 0; wTemp < width; wTemp++)
         {
             for (int hTemp = 0; hTemp < height; hTemp++)
