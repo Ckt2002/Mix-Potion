@@ -35,14 +35,23 @@ public class BombComboSystem
             TargetsIndex = new()
         };
 
-        Explode(tiles, w, h, width, height, radius, match1);
-        Explode(tiles, swappedW, swappedH, width, height, radius, match2);
+        if (radius >= 2)
+        {
+            match1.TargetsIndex.Add((w, h));
+            match2.TargetsIndex.Add((swappedW, swappedH));
+
+            ((SpecialPotion)tiles[w, h].currentPotion).ActivateSpecial();
+            ((SpecialPotion)tiles[swappedW, swappedH].currentPotion).ActivateSpecial();
+        }
+
+        Explode(tiles, w, h, width, height, radius, match1, swappedW, swappedH);
+        Explode(tiles, swappedW, swappedH, width, height, radius, match2, w, h);
 
         matches.Enqueue(new() { match1, match2 });
     }
 
     private static void Explode(TileController[,] tiles, int centerW, int centerH, int width, int height,
-        int radius, PotionMatch match)
+        int radius, PotionMatch match, int avoidW, int avoidH)
     {
         int startW = centerW - radius;
         int endW = centerW + radius;
@@ -63,7 +72,8 @@ public class BombComboSystem
 
                 TileController tile = tiles[wTemp, hTemp];
 
-                if (!CheckValidSystem.ValidTile(tile))
+                if (!CheckValidSystem.ValidTile(tile) ||
+                    wTemp == avoidW && hTemp == avoidH)
                     continue;
 
                 match.TargetsIndex.Add((wTemp, hTemp));

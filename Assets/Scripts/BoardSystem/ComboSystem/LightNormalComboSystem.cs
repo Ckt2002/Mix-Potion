@@ -23,9 +23,12 @@ public class LightNormalComboSystem
 
         if (potionSetting2.PotionType != EPotionType.Lightning)
         {
+            ((SpecialPotion)tiles[w, h].currentPotion).ActivateSpecial();
             colorToGenerate = potionSetting2.PotionColor;
             match.SourceIndex = (w, h);
         }
+        else
+            ((SpecialPotion)tiles[swappedW, swappedH].currentPotion).ActivateSpecial();
 
 
         for (int wTemp = 0; wTemp < width; wTemp++)

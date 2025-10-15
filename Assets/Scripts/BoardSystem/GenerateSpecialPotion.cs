@@ -32,12 +32,12 @@ public class GenerateSpecialPotion
         var (wCol, hCol) = colGroups.First().ElementAt(colGroups.First().Count() / 2);
 
         if (rowGroups.Any(r => r.Count() >= 5))
-            specialToSpawn.Add((wRow, hRow), (EPotionColor.None, EPotionType.Lightning));
+            specialToSpawn.TryAdd((wRow, hRow), (EPotionColor.None, EPotionType.Lightning));
         else if (rowGroups.Any(r => r.Count() == 4))
         {
             EPotionColor color = tiles[wRow, hRow].currentPotion.getPotionSetting.PotionColor;
             EPotionType type = (EPotionType)UnityEngine.Random.Range((int)EPotionType.Row, (int)EPotionType.Column + 1);
-            specialToSpawn.Add((wRow, hRow), (color, type));
+            specialToSpawn.TryAdd((wRow, hRow), (color, type));
         }
 
         if (colGroups.Any(c => c.Count() >= 5))
@@ -46,7 +46,7 @@ public class GenerateSpecialPotion
         {
             EPotionColor color = tiles[wCol, hCol].currentPotion.getPotionSetting.PotionColor;
             EPotionType type = (EPotionType)UnityEngine.Random.Range((int)EPotionType.Row, (int)EPotionType.Column + 1);
-            specialToSpawn.Add((wCol, hCol), (color, type));
+            specialToSpawn.TryAdd((wCol, hCol), (color, type));
         }
     }
 

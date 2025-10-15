@@ -23,16 +23,22 @@ public class BombStripeComboSystem
         int startH = sourceH - 1;
         int endH = sourceH + 1;
 
+        ((SpecialPotion)tiles[w, h].currentPotion).ActivateSpecial();
+        ((SpecialPotion)tiles[swappedW, swappedH].currentPotion).ActivateSpecial();
+
         // wipe row first
-        Wipe(tiles, 0, width - 1, startH, endH, width, height, matches, sourceW, sourceH);
+        Wipe(tiles, 0, width - 1, startH, endH, width, height,
+            matches, sourceW, sourceH, step: 1);
+
         // wipe col
-        Wipe(tiles, startW, endW, 0, height - 1, width, height, matches, sourceW, sourceH);
+        Wipe(tiles, startW, endW, 0, height - 1, width, height,
+            matches, sourceW, sourceH, step: 2);
 
         yield break;
     }
 
     private static void Wipe(TileController[,] tiles, int startW, int endW, int startH, int endH,
-        int width, int height, Queue<List<PotionMatch>> matches, int sourceW, int sourceH)
+        int width, int height, Queue<List<PotionMatch>> matches, int sourceW, int sourceH, int step)
     {
         PotionMatch match = new PotionMatch
         {
@@ -40,6 +46,9 @@ public class BombStripeComboSystem
             SourceIndex = (sourceW, sourceH),
             TargetsIndex = new()
         };
+
+        if (step > 1)
+            match.TargetsIndex.Add((sourceW, sourceH));
 
         for (int wTemp = startW; wTemp <= endW; wTemp++)
         {
@@ -53,7 +62,8 @@ public class BombStripeComboSystem
 
                 TileController tile = tiles[wTemp, hTemp];
 
-                if (!CheckValidSystem.ValidTile(tile))
+                if (!CheckValidSystem.ValidTile(tile) ||
+                    wTemp == sourceW && hTemp == sourceH)
                     continue;
 
                 match.TargetsIndex.Add((wTemp, hTemp));

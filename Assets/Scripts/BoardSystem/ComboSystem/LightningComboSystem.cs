@@ -9,6 +9,9 @@ public class LightningComboSystem
         int width = tiles.GetLength(0);
         int height = tiles.GetLength(1);
 
+        ((SpecialPotion)tiles[w, h].currentPotion).ActivateSpecial();
+        ((SpecialPotion)tiles[swappedH, swappedW].currentPotion).ActivateSpecial();
+
         for (int wTemp = 0; wTemp < width; wTemp++)
         {
             PotionMatch match1 = new PotionMatch
@@ -25,14 +28,15 @@ public class LightningComboSystem
                 TargetsIndex = new()
             };
 
-            if (wTemp == width - 1)
-            {
-                match1.TargetsIndex.Add((w, h));
-                match2.TargetsIndex.Add((swappedW, swappedH));
-            }
-
             for (int hTemp = 0; hTemp < height; hTemp++)
             {
+
+                if (wTemp == width - 1 && hTemp == height - 1)
+                {
+                    match1.TargetsIndex.Add((w, h));
+                    match2.TargetsIndex.Add((swappedW, swappedH));
+                }
+
                 TileController tile = tiles[wTemp, hTemp];
 
                 if (!CheckValidSystem.ValidTile(tile) ||

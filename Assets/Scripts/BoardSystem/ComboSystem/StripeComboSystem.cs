@@ -44,8 +44,8 @@ public class StripeComboSystem
         }
         else
         {
-            matchesList.Add(FindWipeRow(tiles, w, h, tiles.GetLength(0), w, h));
-            matchesList.Add(FindWipeCol(tiles, swappedW, swappedH, tiles.GetLength(1), swappedW, swappedH));
+            matchesList.Add(FindWipeRow(tiles, w, h, tiles.GetLength(0), swappedW, swappedH));
+            matchesList.Add(FindWipeCol(tiles, swappedW, swappedH, tiles.GetLength(1), w, h));
         }
 
         matches.Enqueue(matchesList);

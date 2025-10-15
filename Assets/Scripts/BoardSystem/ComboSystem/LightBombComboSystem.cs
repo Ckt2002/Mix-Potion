@@ -23,6 +23,9 @@ public class LightBombComboSystem
         match.TargetsIndex.Add((w, h));
         match.TargetsIndex.Add((swappedW, swappedH));
 
+        ((SpecialPotion)tiles[w, h].currentPotion).ActivateSpecial();
+        ((SpecialPotion)tiles[swappedW, swappedH].currentPotion).ActivateSpecial();
+
         if (potionSetting2.PotionType == EPotionType.Lightning)
             match.SourceIndex = (swappedW, swappedH);
 

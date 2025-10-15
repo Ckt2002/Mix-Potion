@@ -9,7 +9,6 @@ public class DestroySystem
     public static IEnumerator Destroy(PoolController poolController, TileController[,] tiles,
         List<PotionMatch> batch)
     {
-        Debug.Log("Destroying potions!");
         foreach (PotionMatch match in batch)
         {
             foreach ((int w, int h) in match.TargetsIndex)
@@ -21,10 +20,6 @@ public class DestroySystem
                 tiles[w, h].SetCurrentPotion(null);
             }
         }
-
-        Debug.Log(batch.Count);
-
-        Debug.Log(potionsToDestroy.Count);
 
         const float duration = 0.15f;
         float timer = 0f;
@@ -39,10 +34,18 @@ public class DestroySystem
             yield return null;
         }
 
-        // Update to return special and normal potions
+        // Update to return special and normal potions to Pool
         foreach (PotionController potion in potionsToDestroy)
         {
-            poolController.ReturnNormalPotion((int)potion.getPotionSetting.PotionColor, potion);
+            if (potion.getPotionSetting.PotionType == EPotionType.Normal)
+            {
+                poolController.ReturnNormalPotion((int)potion.getPotionSetting.PotionColor, potion);
+                continue;
+            }
+
+            EPotionColor potionColor = potion.getPotionSetting.PotionColor;
+            EPotionType potionType = potion.getPotionSetting.PotionType;
+            poolController.ReturnSpecialPotion(potionColor, potionType, potion);
         }
 
         potionsToDestroy.Clear();
