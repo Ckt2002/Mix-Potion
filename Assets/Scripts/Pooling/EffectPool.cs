@@ -38,26 +38,17 @@ public class EffectPool
 
     public GameObject GetNormalEffect(int index)
     {
-        GameObject effect = null;
-        if (effectDict[index].Count > 0)
-            effect = effectDict[index].Dequeue();
-        else
-            effect = SpawnNewEffect(prefabs[index]);
+        GameObject effect = effectDict[index].Count > 0 ? effectDict[index].Dequeue() : SpawnNewEffect(prefabs[index]);
 
         ParticleSystem particle = effect.GetComponent<ParticleSystem>();
         var main = particle.main;
-        main.startColor = this.color[index];
+        main.startColor = color[index];
         return effect;
     }
 
     public GameObject Get(int index)
     {
-        GameObject effect = null;
-
-        if (effectDict[index].Count > 0)
-            effect = effectDict[index].Dequeue();
-        else
-            effect = SpawnNewEffect(prefabs[index]);
+        GameObject effect = effectDict[index].Count > 0 ? effectDict[index].Dequeue() : SpawnNewEffect(prefabs[index]);
 
         return effect;
     }

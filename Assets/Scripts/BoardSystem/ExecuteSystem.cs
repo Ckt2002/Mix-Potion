@@ -15,10 +15,11 @@ public class ExecuteSystem
         while (matchBatches.Count > 0)
         {
             List<PotionMatch> batch = matchBatches.Dequeue();
-            Debug.Log(batch.Count);
 
-            foreach (PotionMatch match in batch)
+            while (batch.Count > 0)
             {
+                PotionMatch match = batch[0];
+                batch.RemoveAt(0);
                 EActionType actionType = match.ActionType;
 
                 if (actionType == EActionType.NormalDestroy)
@@ -28,25 +29,21 @@ public class ExecuteSystem
                     // Find and create special potions
                     yield return GenerateSpecialPotion.DetectSpecialPotions(match.TargetsIndex, tiles, specialToSpawn);
 
-                    ExecuteSpecialPotions(tiles, width, height, match, matchBatches);
+                    // ExecuteSpecialPotions(tiles, width, height, match, matchBatches, batch, true);
                 }
 
-                if (actionType == EActionType.Swipe)
-                {
-
-                }
-
-                if (actionType == EActionType.Lightning)
-                {
-
-                }
-
-                if (actionType == EActionType.Explode)
-                {
-
-                }
-
-                // Run effect
+                // if (actionType == EActionType.Swipe)
+                //     ExecuteSpecialPotions(tiles, width, height, match, matchBatches, batch, true);
+                //
+                // if (actionType == EActionType.Lightning)
+                // {
+                //     ExecuteSpecialPotions(tiles, width, height, match, matchBatches, batch);
+                // }
+                //
+                // if (actionType == EActionType.Explode)
+                // {
+                //     ExecuteSpecialPotions(tiles, width, height, match, matchBatches, batch, true);
+                // }
             }
 
             yield return DestroySystem.Destroy(poolController, tiles, batch);
@@ -60,7 +57,8 @@ public class ExecuteSystem
         yield break;
     }
 
-    private static void ExecuteSpecialPotions(TileController[,] tiles, int width, int height, PotionMatch match, Queue<List<PotionMatch>> matchBatches)
+    private static void ExecuteSpecialPotions(TileController[,] tiles, int width, int height, PotionMatch match,
+        Queue<List<PotionMatch>> matchBatches, List<PotionMatch> currentBatch, bool executeImmediate = false)
     {
         foreach ((int w, int h) in match.TargetsIndex)
         {
@@ -89,13 +87,11 @@ public class ExecuteSystem
                         break;
 
                     case EPotionType.Row:
-                        Debug.Log("Row");
                         newMatch.ActionType = EActionType.Swipe;
                         Wipe(tiles, 0, width - 1, h, h, width, height, newMatch.TargetsIndex);
                         break;
 
                     case EPotionType.Column:
-                        Debug.Log("Col");
                         newMatch.ActionType = EActionType.Swipe;
                         Wipe(tiles, w, w, 0, height - 1, width, height, newMatch.TargetsIndex);
                         break;
@@ -106,9 +102,10 @@ public class ExecuteSystem
                         break;
                 }
 
-                matchBatches.Enqueue(new() { newMatch });
-
-                continue;
+                if (executeImmediate)
+                    currentBatch.Add(newMatch);
+                else
+                    matchBatches.Enqueue(new List<PotionMatch> { newMatch });
             }
         }
     }
@@ -128,6 +125,11 @@ public class ExecuteSystem
 
                 TileController tile = tiles[wTemp, hTemp];
                 if (!CheckValidSystem.ValidTile(tile))
+                    continue;
+
+                PotionController potion = tile.currentPotion;
+                if (potion.getPotionSetting.PotionType != EPotionType.Normal &&
+                    CheckValidSystem.PotionIsActivated((SpecialPotion)potion))
                     continue;
 
                 targetsIndex.Add((wTemp, hTemp));

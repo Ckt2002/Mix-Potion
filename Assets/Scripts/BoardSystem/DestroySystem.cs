@@ -9,7 +9,9 @@ public class DestroySystem
     public static IEnumerator Destroy(PoolController poolController, TileController[,] tiles,
         List<PotionMatch> batch)
     {
+        Debug.Log("Destroying potions!");
         foreach (PotionMatch match in batch)
+        {
             foreach ((int w, int h) in match.TargetsIndex)
             {
                 if (tiles[w, h].currentPotion == null)
@@ -18,6 +20,11 @@ public class DestroySystem
                 potionsToDestroy.Add(tiles[w, h].currentPotion);
                 tiles[w, h].SetCurrentPotion(null);
             }
+        }
+
+        Debug.Log(batch.Count);
+
+        Debug.Log(potionsToDestroy.Count);
 
         const float duration = 0.15f;
         float timer = 0f;

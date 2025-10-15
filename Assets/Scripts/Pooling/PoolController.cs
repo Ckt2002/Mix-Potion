@@ -43,7 +43,8 @@ public class PoolController
             name.Append(potionColor.ToString());
             name.Append(potionType.ToString());
         }
-        Enum.TryParse<ESpecialPotion>(name.ToString(), out ESpecialPotion resultEnum);
+
+        Enum.TryParse(name.ToString(), out ESpecialPotion resultEnum);
         return specialPotionPool.Get((int)resultEnum);
     }
 
@@ -59,7 +60,7 @@ public class PoolController
             name.Append(potionType.ToString());
         }
 
-        Enum.TryParse<ESpecialPotion>(name.ToString(), out ESpecialPotion resultEnum);
+        Enum.TryParse(name.ToString(), out ESpecialPotion resultEnum);
         specialPotionPool.ReturnPotionToQueue((int)resultEnum, potion);
     }
 

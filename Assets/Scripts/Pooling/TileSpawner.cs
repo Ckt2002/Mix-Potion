@@ -7,11 +7,11 @@ public class TileSpawner
         TileController[,] tiles = new TileController[width, height];
 
         for (int w = 0; w < width; w++)
-            for (int h = 0; h < height; h++)
-            {
-                tiles[w, h] = GameObject.Instantiate(prefab, parent);
-                tiles[w, h].InitTile(w, h);
-            }
+        for (int h = 0; h < height; h++)
+        {
+            tiles[w, h] = Object.Instantiate(prefab, parent);
+            tiles[w, h].InitTile(w, h);
+        }
 
         return tiles;
     }

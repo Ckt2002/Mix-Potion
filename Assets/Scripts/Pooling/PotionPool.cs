@@ -29,14 +29,14 @@ public class PotionPool
 
     public PotionController SpawnNewPotion(PotionController potionPrefab)
     {
-        PotionController newPotion = GameObject.Instantiate(potionPrefab, parent);
+        PotionController newPotion = Object.Instantiate(potionPrefab, parent);
         newPotion.gameObject.SetActive(false);
         return newPotion;
     }
 
     public PotionController Get(int index)
     {
-        PotionController potion = null;
+        PotionController potion;
 
         if (potionDict[index].Count > 0)
             potion = potionDict[index].Dequeue();
@@ -49,7 +49,7 @@ public class PotionPool
 
     public PotionController GetRandomly()
     {
-        PotionController potion = null;
+        PotionController potion;
         int index = Random.Range(0, potionPrefabs.Length);
 
         if (potionDict[index].Count > 0)

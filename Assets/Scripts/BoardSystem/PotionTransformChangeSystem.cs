@@ -35,7 +35,7 @@ public class PotionTransformChangeSystem
 
         int i = 0;
 
-        foreach ((Vector3 targetPos, Transform potionTransform) in potionsToMove)
+        foreach ((_, Transform potionTransform) in potionsToMove)
         {
             potionsOriginalPos[i] = potionTransform.localPosition;
             i++;

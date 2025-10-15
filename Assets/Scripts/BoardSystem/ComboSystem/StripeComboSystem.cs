@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class StripeComboSystem
 {
-    public static IEnumerator FindMatch(TileController[,] tiles, int w, int h, int swappedW, int swappedH, Queue<List<PotionMatch>> matches,
-        PoolController poolController, TileController tile1, TileController tile2, Potion potionSetting1, Potion potionSetting2)
+    public static IEnumerator FindMatch(TileController[,] tiles, int w, int h, int swappedW, int swappedH,
+        Queue<List<PotionMatch>> matches,
+        PoolController poolController, TileController tile1, TileController tile2, Potion potionSetting1,
+        Potion potionSetting2)
     {
         List<PotionMatch> matchesList = new List<PotionMatch>();
 
@@ -37,13 +39,13 @@ public class StripeComboSystem
 
         if (potionSetting2.PotionType == EPotionType.Row)
         {
-            matchesList.Add(FindWipeRow(tiles, swappedW, swappedH, tiles.GetLength(0)));
-            matchesList.Add(FindWipeCol(tiles, w, h, tiles.GetLength(1)));
+            matchesList.Add(FindWipeRow(tiles, swappedW, swappedH, tiles.GetLength(0), w, h));
+            matchesList.Add(FindWipeCol(tiles, w, h, tiles.GetLength(1), swappedW, swappedH));
         }
         else
         {
-            matchesList.Add(FindWipeRow(tiles, w, h, tiles.GetLength(0)));
-            matchesList.Add(FindWipeCol(tiles, swappedW, swappedH, tiles.GetLength(1)));
+            matchesList.Add(FindWipeRow(tiles, w, h, tiles.GetLength(0), w, h));
+            matchesList.Add(FindWipeCol(tiles, swappedW, swappedH, tiles.GetLength(1), swappedW, swappedH));
         }
 
         matches.Enqueue(matchesList);
@@ -51,7 +53,7 @@ public class StripeComboSystem
         yield break;
     }
 
-    private static PotionMatch FindWipeRow(TileController[,] tiles, int w, int h, int width)
+    private static PotionMatch FindWipeRow(TileController[,] tiles, int w, int h, int width, int avoidW, int avoidH)
     {
         SpecialPotion potion = (SpecialPotion)tiles[w, h].currentPotion;
         potion.ActivateSpecial();
@@ -66,7 +68,8 @@ public class StripeComboSystem
         for (int wTemp = 0; wTemp < width; wTemp++)
         {
             TileController tile = tiles[wTemp, h];
-            if (!CheckValidSystem.ValidTile(tile))
+            if (!CheckValidSystem.ValidTile(tile) ||
+                wTemp == avoidW && h == avoidH)
                 continue;
 
             match.TargetsIndex.Add((wTemp, h));
@@ -75,7 +78,7 @@ public class StripeComboSystem
         return match;
     }
 
-    private static PotionMatch FindWipeCol(TileController[,] tiles, int w, int h, int height)
+    private static PotionMatch FindWipeCol(TileController[,] tiles, int w, int h, int height, int avoidW, int avoidH)
     {
         SpecialPotion potion = (SpecialPotion)tiles[w, h].currentPotion;
         potion.ActivateSpecial();
@@ -90,7 +93,8 @@ public class StripeComboSystem
         for (int hTemp = 0; hTemp < height; hTemp++)
         {
             TileController tile = tiles[w, hTemp];
-            if (!CheckValidSystem.ValidTile(tile))
+            if (!CheckValidSystem.ValidTile(tile) ||
+                w == avoidW && hTemp == avoidH)
                 continue;
 
             match.TargetsIndex.Add((w, hTemp));

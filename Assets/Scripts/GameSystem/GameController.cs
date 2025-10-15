@@ -4,16 +4,16 @@ public class GameController : MonoBehaviour
 {
     public static GameController Instance;
 
-    [Header("Scriptable Object")]
-    [SerializeField] SOTilePoolSetting tilePoolSetting;
+    [Header("Scriptable Object")] [SerializeField]
+    SOTilePoolSetting tilePoolSetting;
+
     [SerializeField] SOPotionPoolSetting normalPotionPoolSetting;
     [SerializeField] SOPotionPoolSetting specialPotionPoolSetting;
     [SerializeField] SOEffectPoolSetting effectPoolSetting;
     [SerializeField] SOParticleColor particleColor;
     [SerializeField] SOGameSetting gameSetting;
 
-    [Header("Parent Transform")]
-    public Transform tileParent;
+    [Header("Parent Transform")] public Transform tileParent;
     public Transform potionParent;
     public Transform effectParent;
 
