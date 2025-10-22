@@ -35,14 +35,36 @@ public class ExecuteSystem
                 }
 
                 if (actionType == EActionType.Swipe)
+                {
                     ExecuteSpecialPotions(tiles, width, height, match, matchBatches, batch, true);
+                }
 
                 if (actionType == EActionType.Lightning)
+                {
+                    Vector3 sourcePos = tiles[match.SourceIndex.w, match.SourceIndex.h].transform.position;
+                    foreach ((int w, int h) in match.TargetsIndex)
+                    {
+                        Vector3 targetPos = tiles[w, h].transform.position;
+                        GameObject effect = poolController.GetSpecialEffect(EEffectType.Lightning);
+                        LineRenderer line = effect.GetComponent<LineRenderer>();
+                        line.SetPosition(0, sourcePos);
+                        line.SetPosition(1, targetPos);
+                        effect.SetActive(true);
+
+                        EffectSystem.instance.AddSpawnedEffect(effect);
+
+                        yield return new WaitForSeconds(0.1f);
+                    }
+
+                    yield return new WaitForSeconds(1);
+
                     ExecuteSpecialPotions(tiles, width, height, match, matchBatches, batch, true);
+                }
 
                 if (actionType == EActionType.Explode)
+                {
                     ExecuteSpecialPotions(tiles, width, height, match, matchBatches, batch, true);
-
+                }
                 batchIndex++;
             }
 

@@ -2,11 +2,40 @@
 using System.Text;
 using UnityEngine;
 
-public class PoolController
+public class PoolController : MonoBehaviour
 {
+    public static PoolController instance;
+
+    public SOPotionPoolSetting normalPotionPoolSetting;
+    public SOPotionPoolSetting specialPotionPoolSetting;
+    public SOEffectPoolSetting effectPoolSetting;
+    public SOParticleColor effectColor;
+    public Transform potionParent;
+    public Transform effectParent;
+
     PotionPool normalPotionPool;
     PotionPool specialPotionPool;
     EffectPool effectPool;
+
+    private void Awake()
+    {
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(this);
+    }
+
+    private void Start()
+    {
+        normalPotionPool = new PotionPool(normalPotionPoolSetting.Prefab,
+            normalPotionPoolSetting.SpawnNumber, potionParent);
+
+        specialPotionPool = new PotionPool(specialPotionPoolSetting.Prefab,
+            specialPotionPoolSetting.SpawnNumber, potionParent);
+
+        effectPool = new EffectPool(effectPoolSetting.Prefab, effectColor.color,
+            effectPoolSetting.SpawnNumber, effectParent);
+    }
 
     public PoolController(SOPotionPoolSetting normalPotionPoolSetting,
         SOPotionPoolSetting specialPotionPoolSetting,

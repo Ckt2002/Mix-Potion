@@ -60,8 +60,7 @@ public class BombComboSystem
 
         for (int wTemp = startW; wTemp <= endW; wTemp++)
         {
-            if (!CheckValidSystem.ValidIndex(wTemp, width) ||
-                wTemp == centerW)
+            if (!CheckValidSystem.ValidIndex(wTemp, width))
                 continue;
 
             for (int hTemp = startH; hTemp <= endH; hTemp++)
