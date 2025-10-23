@@ -4,6 +4,8 @@ using UnityEngine;
 public class EffectSystem : MonoBehaviour
 {
     public static EffectSystem instance;
+
+    PoolController poolController;
     List<EffectController> effects;
 
     void Awake()
@@ -17,9 +19,15 @@ public class EffectSystem : MonoBehaviour
             Destroy(this);
     }
 
+    void Start()
+    {
+        poolController = PoolController.instance;
+    }
+
     void Update()
     {
-        TimeExistCal(Time.deltaTime);
+        if (effects.Count > 0)
+            TimeExistCal(Time.deltaTime);
     }
 
     private void TimeExistCal(float deltaTime)
@@ -33,10 +41,13 @@ public class EffectSystem : MonoBehaviour
             {
                 effects.Remove(effect);
                 effect.gameObject.SetActive(false);
+                poolController.ReturnEffect(effect.effectType, effect.gameObject);
             }
             else
+            {
                 effect.UpdateExistTime(deltaTime);
-            index++;
+                index++;
+            }
         }
     }
 

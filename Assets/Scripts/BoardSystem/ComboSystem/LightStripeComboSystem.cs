@@ -11,10 +11,18 @@ public class LightStripeComboSystem
     {
         PotionMatch match = new PotionMatch()
         {
-            ActionType = EActionType.Lightning,
+            ActionType = EActionType.None,
             SourceIndex = (swappedW, swappedH),
             TargetsIndex = new()
         };
+
+        EPotionColor colorToGenerate = potionSetting1.PotionColor;
+
+        if (potionSetting2.PotionType != EPotionType.Lightning)
+        {
+            colorToGenerate = potionSetting2.PotionColor;
+            match.SourceIndex = (w, h);
+        }
 
         int width = tiles.GetLength(0);
         int height = tiles.GetLength(1);
@@ -24,14 +32,6 @@ public class LightStripeComboSystem
 
         ((SpecialPotion)tiles[w, h].currentPotion).ActivateSpecial();
         ((SpecialPotion)tiles[swappedW, swappedH].currentPotion).ActivateSpecial();
-
-        EPotionColor colorToGenerate = potionSetting1.PotionColor;
-
-        if (potionSetting2.PotionType != EPotionType.Lightning)
-        {
-            colorToGenerate = potionSetting2.PotionColor;
-            match.SourceIndex = (w, h);
-        }
 
         for (int wTemp = 0; wTemp < width; wTemp++)
         {

@@ -6,10 +6,13 @@ public class PoolController : MonoBehaviour
 {
     public static PoolController instance;
 
+    [Header("Scriptable Object")]
     public SOPotionPoolSetting normalPotionPoolSetting;
     public SOPotionPoolSetting specialPotionPoolSetting;
     public SOEffectPoolSetting effectPoolSetting;
     public SOParticleColor effectColor;
+
+    [Header("Parent Transform")]
     public Transform potionParent;
     public Transform effectParent;
 
@@ -20,37 +23,20 @@ public class PoolController : MonoBehaviour
     private void Awake()
     {
         if (instance == null)
+        {
             instance = this;
+
+            normalPotionPool = new PotionPool(normalPotionPoolSetting.Prefab,
+                normalPotionPoolSetting.SpawnNumber, potionParent);
+
+            specialPotionPool = new PotionPool(specialPotionPoolSetting.Prefab,
+                specialPotionPoolSetting.SpawnNumber, potionParent);
+
+            effectPool = new EffectPool(effectPoolSetting.Prefab, effectColor.color,
+                effectPoolSetting.SpawnNumber, effectParent);
+        }
         else
             Destroy(this);
-    }
-
-    private void Start()
-    {
-        normalPotionPool = new PotionPool(normalPotionPoolSetting.Prefab,
-            normalPotionPoolSetting.SpawnNumber, potionParent);
-
-        specialPotionPool = new PotionPool(specialPotionPoolSetting.Prefab,
-            specialPotionPoolSetting.SpawnNumber, potionParent);
-
-        effectPool = new EffectPool(effectPoolSetting.Prefab, effectColor.color,
-            effectPoolSetting.SpawnNumber, effectParent);
-    }
-
-    public PoolController(SOPotionPoolSetting normalPotionPoolSetting,
-        SOPotionPoolSetting specialPotionPoolSetting,
-        SOEffectPoolSetting effectPoolSetting,
-        SOParticleColor effectColor,
-        Transform potionParent, Transform effectParent)
-    {
-        normalPotionPool = new PotionPool(normalPotionPoolSetting.Prefab,
-            normalPotionPoolSetting.SpawnNumber, potionParent);
-
-        specialPotionPool = new PotionPool(specialPotionPoolSetting.Prefab,
-            specialPotionPoolSetting.SpawnNumber, potionParent);
-
-        effectPool = new EffectPool(effectPoolSetting.Prefab, effectColor.color,
-            effectPoolSetting.SpawnNumber, effectParent);
     }
 
     public PotionController GetNormalPotion(int color)

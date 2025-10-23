@@ -16,14 +16,14 @@ public class LightningComboSystem
         {
             PotionMatch match1 = new PotionMatch
             {
-                ActionType = EActionType.Lightning,
+                ActionType = EActionType.NormalLightning,
                 SourceIndex = (w, h),
                 TargetsIndex = new()
             };
 
             PotionMatch match2 = new PotionMatch
             {
-                ActionType = EActionType.Lightning,
+                ActionType = EActionType.NormalLightning,
                 SourceIndex = (swappedW, swappedH),
                 TargetsIndex = new()
             };

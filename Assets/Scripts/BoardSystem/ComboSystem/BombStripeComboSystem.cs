@@ -42,7 +42,7 @@ public class BombStripeComboSystem
     {
         PotionMatch match = new PotionMatch
         {
-            ActionType = EActionType.Swipe,
+            ActionType = EActionType.NormalSwipe,
             SourceIndex = (sourceW, sourceH),
             TargetsIndex = new()
         };

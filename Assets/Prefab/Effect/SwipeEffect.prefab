@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5240247729473160588}
   - component: {fileID: 4558981061635170290}
+  - component: {fileID: -7905019998519303259}
   m_Layer: 0
   m_Name: SwipeEffect
   m_TagString: Untagged
@@ -136,3 +137,17 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &-7905019998519303259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5481380951458734573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f96bac02aa9a71f44a3ebdeac5d13a5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effectType: 1
+  maxExistTime: 1

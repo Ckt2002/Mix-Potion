@@ -1,7 +1,9 @@
 ﻿public enum EActionType
 {
+    None,
     NormalDestroy,
-    Lightning,
+    NormalLightning,
     Explode,
-    Swipe,
+    NormalSwipe,
+
 }

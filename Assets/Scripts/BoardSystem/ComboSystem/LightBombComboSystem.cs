@@ -12,7 +12,7 @@ public class LightBombComboSystem
 
         PotionMatch match = new PotionMatch()
         {
-            ActionType = EActionType.Lightning,
+            ActionType = EActionType.None,
             SourceIndex = (w, h),
             TargetsIndex = new()
         };

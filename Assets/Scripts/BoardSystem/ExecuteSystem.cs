@@ -34,12 +34,12 @@ public class ExecuteSystem
                     ExecuteSpecialPotions(tiles, width, height, match, matchBatches, batch, true);
                 }
 
-                if (actionType == EActionType.Swipe)
+                if (actionType == EActionType.NormalSwipe)
                 {
                     ExecuteSpecialPotions(tiles, width, height, match, matchBatches, batch, true);
                 }
 
-                if (actionType == EActionType.Lightning)
+                if (actionType == EActionType.NormalLightning)
                 {
                     Vector3 sourcePos = tiles[match.SourceIndex.w, match.SourceIndex.h].transform.position;
                     foreach ((int w, int h) in match.TargetsIndex)
@@ -53,7 +53,7 @@ public class ExecuteSystem
 
                         EffectSystem.instance.AddSpawnedEffect(effect);
 
-                        yield return new WaitForSeconds(0.1f);
+                        // yield return new WaitForSeconds(0.1f);
                     }
 
                     yield return new WaitForSeconds(1);
@@ -111,17 +111,17 @@ public class ExecuteSystem
                         break;
 
                     case EPotionType.Row:
-                        newMatch.ActionType = EActionType.Swipe;
+                        newMatch.ActionType = EActionType.NormalSwipe;
                         Wipe(tiles, 0, width - 1, h, h, width, height, newMatch.TargetsIndex);
                         break;
 
                     case EPotionType.Column:
-                        newMatch.ActionType = EActionType.Swipe;
+                        newMatch.ActionType = EActionType.NormalSwipe;
                         Wipe(tiles, w, w, 0, height - 1, width, height, newMatch.TargetsIndex);
                         break;
 
                     default:
-                        newMatch.ActionType = EActionType.Lightning;
+                        newMatch.ActionType = EActionType.NormalLightning;
                         DestroyRandomly(tiles, width, height, newMatch.TargetsIndex);
                         break;
                 }

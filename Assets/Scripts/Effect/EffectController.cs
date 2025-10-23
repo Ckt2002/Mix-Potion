@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class EffectController : MonoBehaviour
 {
+    public EEffectType effectType;
     public float maxExistTime = 0.5f;
     private float existTime = 0;
 

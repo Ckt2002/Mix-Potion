@@ -60,7 +60,7 @@ public class StripeComboSystem
 
         PotionMatch match = new PotionMatch
         {
-            ActionType = EActionType.Swipe,
+            ActionType = EActionType.NormalSwipe,
             SourceIndex = (w, h),
             TargetsIndex = new(),
         };
@@ -85,7 +85,7 @@ public class StripeComboSystem
 
         PotionMatch match = new PotionMatch
         {
-            ActionType = EActionType.Swipe,
+            ActionType = EActionType.NormalSwipe,
             SourceIndex = (w, h),
             TargetsIndex = new(),
         };

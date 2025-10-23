@@ -8,7 +8,7 @@ public class LightNormalComboSystem
     {
         PotionMatch match = new PotionMatch()
         {
-            ActionType = EActionType.Lightning,
+            ActionType = EActionType.NormalLightning,
             SourceIndex = (w, h),
             TargetsIndex = new()
         };
