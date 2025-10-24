@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
+using UnityEngine;
 
 public class LightningComboSystem
 {
@@ -10,7 +12,7 @@ public class LightningComboSystem
         int height = tiles.GetLength(1);
 
         ((SpecialPotion)tiles[w, h].currentPotion).ActivateSpecial();
-        ((SpecialPotion)tiles[swappedH, swappedW].currentPotion).ActivateSpecial();
+        ((SpecialPotion)tiles[swappedW, swappedH].currentPotion).ActivateSpecial();
 
         for (int wTemp = 0; wTemp < width; wTemp++)
         {

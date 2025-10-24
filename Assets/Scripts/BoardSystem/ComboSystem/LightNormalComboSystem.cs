@@ -9,7 +9,6 @@ public class LightNormalComboSystem
         PotionMatch match = new PotionMatch()
         {
             ActionType = EActionType.NormalLightning,
-            SourceIndex = (w, h),
             TargetsIndex = new()
         };
 
@@ -19,16 +18,22 @@ public class LightNormalComboSystem
         match.TargetsIndex.Add((w, h));
         match.TargetsIndex.Add((swappedW, swappedH));
 
-        EPotionColor colorToGenerate = potionSetting1.PotionColor;
+        EPotionColor colorToGenerate;
 
-        if (potionSetting2.PotionType != EPotionType.Lightning)
+        if (potionSetting1.PotionType == EPotionType.Lightning)
         {
             ((SpecialPotion)tiles[w, h].currentPotion).ActivateSpecial();
-            colorToGenerate = potionSetting2.PotionColor;
             match.SourceIndex = (w, h);
+
+            colorToGenerate = potionSetting2.PotionColor;
         }
         else
+        {
             ((SpecialPotion)tiles[swappedW, swappedH].currentPotion).ActivateSpecial();
+            match.SourceIndex = (swappedW, swappedH);
+
+            colorToGenerate = potionSetting1.PotionColor;
+        }
 
 
         for (int wTemp = 0; wTemp < width; wTemp++)
