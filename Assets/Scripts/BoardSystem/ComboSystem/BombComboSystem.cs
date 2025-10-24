@@ -23,14 +23,14 @@ public class BombComboSystem
 
         PotionMatch match1 = new PotionMatch
         {
-            ActionType = EActionType.Explode,
+            ActionType = EActionType.NormalExplode,
             SourceIndex = (w, h),
             TargetsIndex = new()
         };
 
         PotionMatch match2 = new PotionMatch
         {
-            ActionType = EActionType.Explode,
+            ActionType = EActionType.NormalExplode,
             SourceIndex = (swappedW, swappedH),
             TargetsIndex = new()
         };

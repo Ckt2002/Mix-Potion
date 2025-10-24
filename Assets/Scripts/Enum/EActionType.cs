@@ -3,7 +3,7 @@
     None,
     NormalDestroy,
     NormalLightning,
-    Explode,
+    NormalExplode,
     NormalSwipe,
-
+    ClearBoard
 }

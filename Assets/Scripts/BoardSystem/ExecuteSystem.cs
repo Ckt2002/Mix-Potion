@@ -61,7 +61,7 @@ public class ExecuteSystem
                     ExecuteSpecialPotions(tiles, width, height, match, matchBatches, batch, true);
                 }
 
-                if (actionType == EActionType.Explode)
+                if (actionType == EActionType.NormalExplode)
                 {
                     ExecuteSpecialPotions(tiles, width, height, match, matchBatches, batch, true);
                 }
@@ -106,7 +106,7 @@ public class ExecuteSystem
                 switch (type)
                 {
                     case EPotionType.Bomb:
-                        newMatch.ActionType = EActionType.Explode;
+                        newMatch.ActionType = EActionType.NormalExplode;
                         Wipe(tiles, w - 1, w + 1, h - 1, h + 1, width, height, newMatch.TargetsIndex);
                         break;
 
