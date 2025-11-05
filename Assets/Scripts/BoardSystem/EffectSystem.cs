@@ -13,7 +13,7 @@ public class EffectSystem : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            effects = new();
+            effects = new List<EffectController>();
         }
         else
             Destroy(this);
