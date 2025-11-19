@@ -15,12 +15,15 @@ public class ComboSystem
         EPotionType type1 = potionSetting1.PotionType;
         EPotionType type2 = potionSetting2.PotionType;
 
+        #region Normal type
         if (BothNormal(type1, type2) || NormalStripe(type1, type2) || NormalBomb(type1, type2))
         {
             yield return NormalComboSystem.FindMatch(tiles, w, h, swappedW, swappedH, matchBatches);
             yield break;
         }
+        #endregion
 
+        #region Same special type
         if (BothStripe(type1, type2))
         {
             yield return StripeComboSystem.FindMatch(tiles, w, h, swappedW, swappedH, matchBatches,
@@ -39,7 +42,9 @@ public class ComboSystem
             yield return LightningComboSystem.FindMatch(tiles, w, h, swappedW, swappedH, matchBatches);
             yield break;
         }
+        #endregion
 
+        #region Different special type
         if (BombStripe(type1, type2))
         {
             yield return BombStripeComboSystem.FindMatch(tiles, w, h, swappedW, swappedH, matchBatches, type2);
@@ -66,10 +71,10 @@ public class ComboSystem
                 potionSetting1, potionSetting2);
             yield break;
         }
+        #endregion
     }
 
     #region Combo Conditions
-
     private static bool BothNormal(EPotionType type1, EPotionType type2)
         => type1 == EPotionType.Normal && type2 == EPotionType.Normal;
 

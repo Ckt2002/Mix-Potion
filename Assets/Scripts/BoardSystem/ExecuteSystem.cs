@@ -6,73 +6,124 @@ public class ExecuteSystem
 {
     private static Dictionary<(int, int), (EPotionColor, EPotionType)> specialToSpawn = new();
 
-    public static IEnumerator ExecuteMatchPotions(TileController[,] tiles, Queue<List<PotionMatch>> matchBatches,
+    public static IEnumerator ExecuteMatchPotions(TileController[,] tiles, Queue<List<PotionMatch>> queueBatches,
         PoolController poolController)
     {
         int width = tiles.GetLength(0);
         int height = tiles.GetLength(1);
+        bool runDestroyPotionImmediately = false;
 
-        while (matchBatches.Count > 0)
+        while (queueBatches.Count > 0)
         {
-            List<PotionMatch> batch = matchBatches.Dequeue();
+            List<PotionMatch> lstBatch = queueBatches.Dequeue();
 
             int batchIndex = 0;
 
-            while (batchIndex < batch.Count)
+            while (batchIndex < lstBatch.Count)
             {
-                PotionMatch match = batch[batchIndex];
+                runDestroyPotionImmediately = false;
+                PotionMatch match = lstBatch[batchIndex];
 
                 EActionType actionType = match.ActionType;
 
-                if (actionType == EActionType.NormalDestroy)
+                switch (actionType)
                 {
-                    match.TargetsIndex.Add(match.SourceIndex);
+                    case EActionType.NormalDestroy:
+                        {
+                            match.TargetsIndex.Add(match.SourceIndex);
+                            // Find and create special potions
+                            yield return GenerateSpecialPotion.DetectSpecialPotions(match.TargetsIndex, tiles, specialToSpawn);
+                            ExecuteSpecialPotions(tiles, width, height, match, queueBatches, lstBatch, true);
+                            break;
+                        }
 
-                    // Find and create special potions
-                    yield return GenerateSpecialPotion.DetectSpecialPotions(match.TargetsIndex, tiles, specialToSpawn);
+                    case EActionType.NormalSwipe:
+                        {
+                            ExecuteSpecialPotions(tiles, width, height, match, queueBatches, lstBatch, true);
+                            break;
+                        }
 
-                    ExecuteSpecialPotions(tiles, width, height, match, matchBatches, batch, true);
+                    case EActionType.NormalExplode:
+                        ExecuteSpecialPotions(tiles, width, height, match, queueBatches, lstBatch, true);
+                        break;
+
+                    case EActionType.NormalLightning:
+                        {
+                            Vector3 sourcePos = tiles[match.SourceIndex.w, match.SourceIndex.h].transform.position;
+                            foreach ((int w, int h) in match.TargetsIndex)
+                            {
+                                Vector3 targetPos = tiles[w, h].transform.position;
+                                GameObject effect = poolController.GetSpecialEffect(EEffectType.Lightning);
+                                LineRenderer line = effect.GetComponent<LineRenderer>();
+                                line.SetPosition(0, sourcePos);
+                                line.SetPosition(1, targetPos);
+                                effect.SetActive(true);
+
+                                EffectSystem.instance.AddSpawnedEffect(effect);
+                            }
+
+                            yield return CoroutineWaitTimes.Wait_1;
+
+                            ExecuteSpecialPotions(tiles, width, height, match, queueBatches, lstBatch, true);
+                            break;
+                        }
+
+                    case EActionType.ClearBoard:
+                        {
+                            // Will only if there are any clear board action exist in batch
+                            // Run effects on lightning 1
+                            PotionMatch match1 = match;
+                            Vector3 sourcePos = tiles[match1.SourceIndex.w, match1.SourceIndex.h].transform.position;
+                            foreach ((int w, int h) in match1.TargetsIndex)
+                            {
+                                Vector3 targetPos = tiles[w, h].transform.position;
+                                GameObject effect = poolController.GetSpecialEffect(EEffectType.Lightning);
+                                LineRenderer line = effect.GetComponent<LineRenderer>();
+                                line.SetPosition(0, sourcePos);
+                                line.SetPosition(1, targetPos);
+                                effect.SetActive(true);
+
+                                EffectSystem.instance.AddSpawnedEffect(effect);
+                            }
+
+                            // Run effects on lightning 2
+                            ++batchIndex;
+                            PotionMatch match2 = lstBatch[batchIndex];
+
+                            sourcePos = tiles[match2.SourceIndex.w, match2.SourceIndex.h].transform.position;
+                            foreach ((int w, int h) in match2.TargetsIndex)
+                            {
+                                Vector3 targetPos = tiles[w, h].transform.position;
+                                GameObject effect = poolController.GetSpecialEffect(EEffectType.Lightning);
+                                LineRenderer line = effect.GetComponent<LineRenderer>();
+                                line.SetPosition(0, sourcePos);
+                                line.SetPosition(1, targetPos);
+                                effect.SetActive(true);
+
+                                EffectSystem.instance.AddSpawnedEffect(effect);
+                            }
+                            runDestroyPotionImmediately = true;
+
+                            yield return CoroutineWaitTimes.Wait_1;
+
+                            // Destroy potions after completed effect
+                            yield return DestroySystem.ClearBoard(poolController, tiles, match1, match2);
+
+                            break;
+                        }
                 }
 
-                if (actionType == EActionType.NormalSwipe)
-                {
-                    ExecuteSpecialPotions(tiles, width, height, match, matchBatches, batch, true);
-                }
-
-                if (actionType == EActionType.NormalLightning)
-                {
-                    Vector3 sourcePos = tiles[match.SourceIndex.w, match.SourceIndex.h].transform.position;
-                    foreach ((int w, int h) in match.TargetsIndex)
-                    {
-                        Vector3 targetPos = tiles[w, h].transform.position;
-                        GameObject effect = poolController.GetSpecialEffect(EEffectType.Lightning);
-                        LineRenderer line = effect.GetComponent<LineRenderer>();
-                        line.SetPosition(0, sourcePos);
-                        line.SetPosition(1, targetPos);
-                        effect.SetActive(true);
-
-                        EffectSystem.instance.AddSpawnedEffect(effect);
-
-                        // yield return new WaitForSeconds(0.1f);
-                    }
-
-                    yield return new WaitForSeconds(1);
-
-                    ExecuteSpecialPotions(tiles, width, height, match, matchBatches, batch, true);
-                }
-
-                if (actionType == EActionType.NormalExplode)
-                {
-                    ExecuteSpecialPotions(tiles, width, height, match, matchBatches, batch, true);
-                }
-                batchIndex++;
+                ++batchIndex;
             }
 
-            yield return DestroySystem.Destroy(poolController, tiles, batch);
+            if (!runDestroyPotionImmediately)
+                yield return DestroySystem.Destroy(poolController, tiles, lstBatch);
 
             yield return GenerateSpecialPotion.Generate(tiles, poolController, specialToSpawn);
 
-            yield return new WaitForSeconds(0.5f);
+            yield return CoroutineWaitTimes.Wait_0_5;
+
+            // End current queue
         }
 
         specialToSpawn.Clear();

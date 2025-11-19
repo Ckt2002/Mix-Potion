@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
-using UnityEngine;
 
 public class LightningComboSystem
 {
@@ -18,14 +16,14 @@ public class LightningComboSystem
         {
             PotionMatch match1 = new PotionMatch
             {
-                ActionType = EActionType.NormalLightning,
+                ActionType = EActionType.ClearBoard,
                 SourceIndex = (w, h),
                 TargetsIndex = new()
             };
 
             PotionMatch match2 = new PotionMatch
             {
-                ActionType = EActionType.NormalLightning,
+                ActionType = EActionType.ClearBoard,
                 SourceIndex = (swappedW, swappedH),
                 TargetsIndex = new()
             };

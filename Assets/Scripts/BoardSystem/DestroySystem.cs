@@ -34,7 +34,7 @@ public class DestroySystem
             yield return null;
         }
 
-        // Update to return special and normal potions to Pool
+        // Return special and normal potions to Pool
         foreach (PotionController potion in potionsToDestroy)
         {
             if (potion.getPotionSetting.PotionType == EPotionType.Normal)
@@ -49,6 +49,59 @@ public class DestroySystem
         }
 
         potionsToDestroy.Clear();
+        yield break;
+    }
+
+    public static IEnumerator ClearBoard(PoolController poolController, TileController[,] tiles,
+        PotionMatch match1, PotionMatch match2)
+    {
+        foreach ((int w, int h) in match1.TargetsIndex)
+        {
+            if (tiles[w, h].currentPotion == null)
+                continue;
+
+            potionsToDestroy.Add(tiles[w, h].currentPotion);
+            tiles[w, h].SetCurrentPotion(null);
+        }
+
+        foreach ((int w, int h) in match2.TargetsIndex)
+        {
+            if (tiles[w, h].currentPotion == null)
+                continue;
+
+            potionsToDestroy.Add(tiles[w, h].currentPotion);
+            tiles[w, h].SetCurrentPotion(null);
+        }
+
+        const float duration = 0.15f;
+        float timer = 0f;
+
+        while (timer < 1f)
+        {
+            timer += Time.deltaTime / duration;
+
+            foreach (PotionController potion in potionsToDestroy)
+                potion.transform.localScale = Vector3.Lerp(potion.transform.localScale, Vector3.zero, timer);
+
+            yield return null;
+        }
+
+        // Return special and normal potions to Pool
+        foreach (PotionController potion in potionsToDestroy)
+        {
+            if (potion.getPotionSetting.PotionType == EPotionType.Normal)
+            {
+                poolController.ReturnNormalPotion((int)potion.getPotionSetting.PotionColor, potion);
+                continue;
+            }
+
+            EPotionColor potionColor = potion.getPotionSetting.PotionColor;
+            EPotionType potionType = potion.getPotionSetting.PotionType;
+            poolController.ReturnSpecialPotion(potionColor, potionType, potion);
+        }
+
+        potionsToDestroy.Clear();
+
         yield break;
     }
 }
